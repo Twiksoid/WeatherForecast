@@ -46,27 +46,29 @@ enum Constants {
     static let textWhileLoadingInit = "Загрузка данных, подождите ..."
 }
 
-let headerData: HeaderData = .init(minMaxWeather: "7º/13º",
-                                   currentWeatherValue: "13º",
-                                   descriptionWeather: "Возможен дождь",
-                                   timeRise: "05:41",
-                                   timeSunset: "19:37",
-                                   generalWeatherInfo: "17:48, Fr 16 April",
-                                   imageVisible: UIImage(named: "03d")!,
-                                   valueVisible: "0",
-                                   imageRain: UIImage(named: "50d")!,
-                                   valueRain: "75%",
-                                   imageWind: UIImage(named: "01d")!,
-                                   valueWind: "3 m/c")
-let miniData: MiniData = .init(textTimeWeather: "12:00",
-                               imageCollectionView: UIImage(named: "13d")!,
-                               textWeather: "13º")
+let headerDataExample: HeaderData = .init(minMaxWeather: "7º/13º",
+                                          currentWeatherValue: "13º",
+                                          descriptionWeather: "Возможен дождь",
+                                          timeRise: "05:41",
+                                          timeSunset: "19:37",
+                                          generalWeatherInfo: "17:48, Fr 16 April",
+                                          imageVisible: UIImage(named: "03d")!,
+                                          valueVisible: "0",
+                                          imageRain: UIImage(named: "50d")!,
+                                          valueRain: "75%",
+                                          imageWind: UIImage(named: "01d")!,
+                                          valueWind: "3 m/c")
+let miniDataExample: MiniData = .init(cityID: 35334,
+                                      textTimeWeather: "12:00",
+                                      imageCollectionView: UIImage(named: "13d")!,
+                                      textWeather: "13º")
 
-let textData: TextData = .init(dataWeather: "17/04",
-                               imageWeather: UIImage(named: "04d")!,
-                               vetPercent: "57%",
-                               descriptionWeather: "Преимущественно облачно",
-                               degreesseData: "4º-11º")
+let textDataExample: TextData = .init(cityID: 43233,
+                                      dataWeather: "17.04",
+                                      imageWeather: UIImage(named: "04d")!,
+                                      vetPercent: "57%",
+                                      descriptionWeather: "Преимущественно облачно",
+                                      degreesseData: "4º-11º")
 
 let allWeatherData1: AllWeatherData = .init(cityID: 35334,
                                             cityName: "Moscow",

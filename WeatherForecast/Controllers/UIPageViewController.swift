@@ -16,7 +16,8 @@ class PageViewController: UIPageViewController {
     var longitude: CLLocationDegrees?
     
     var arrayOfWeatherData = [AllWeatherData]()
-//    var miniWeatherData = [MiniData]()
+    var miniWeatherData = [MiniData]()
+    var textWeatherData = [TextData]()
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.barTintColor = .white
@@ -33,8 +34,6 @@ class PageViewController: UIPageViewController {
         // вызвать пейжвьюконтроллер
         setVCForPage()
         setupView()
-        //miniWeatherData = createMiniData()
-        //print("Данные для миниатюры погоды", miniWeatherData)
     }
     
     private func setVCForPage(){
@@ -76,36 +75,87 @@ class PageViewController: UIPageViewController {
                     if citiesIDArrayForCompair.contains(where: { $0 == vc.cityID }) { continue } else {
                         i += 1
                         citiesIDArrayForCompair.append(vc.cityID)
-                        weatherVCs.append(WeatherDataController(allweatherData: vc))
+                        
+                        miniWeatherData = createMini(cityID: vc.cityID)
+                        textWeatherData = createExtension(cityID: vc.cityID)
+                        
+                        weatherVCs.append(WeatherDataController(allweatherData: vc, weatherMini: miniWeatherData, textWeather: textWeatherData))
                     }
                 }
             }}
         return weatherVCs
     }()
     
-//    private func createMiniData() -> [MiniData]{
-//        var cities = [Int32]()
-//        for cityID in CoreDataManager.shared.city {
-//            cities.append(cityID.id)
-//        }
-//
-//        // массив данных для миниатюр
-//        var miniDates = [MiniData]()
-//
-//        for i in 0...cities.count-1 {
-//            for y in 0...arrayOfWeatherData.count-1 {
-//                if arrayOfWeatherData[y].cityID == cities[i] {
-//                    let mini: MiniData = .init(
-//                        textTimeWeather: arrayOfWeatherData[y].textTimeWeather,
-//                        imageCollectionView: arrayOfWeatherData[y].imageCollectionView,
-//                        textWeather: arrayOfWeatherData[y].textWeather)
-//                    miniDates.append(mini)
-//                }
-//            }}
-//        return miniDates
-//    }
-            
-            
+    private func createMini(cityID: Int32) -> [MiniData]{
+        var miniDate = [MiniData]()
+        
+        for y in 0...arrayOfWeatherData.count-1 {
+            if arrayOfWeatherData[y].cityID == cityID {
+                let mini: MiniData = .init(
+                    cityID: cityID,
+                    textTimeWeather: arrayOfWeatherData[y].textTimeWeather,
+                    imageCollectionView: arrayOfWeatherData[y].imageCollectionView,
+                    textWeather: arrayOfWeatherData[y].textWeather)
+                miniDate.append(mini)
+            }
+        }
+        
+        // сортируем данные по времени от меньшего к большему
+        miniDate.sort { $0.textTimeWeather < $1.textTimeWeather }
+        print("Данные для миниатюры погоды - ", miniDate)
+        return miniDate
+    }
+    
+    private func createExtension(cityID: Int32) -> [TextData] {
+        var textDate = [TextData]()
+        
+        var datesForCompare = [String]()
+        var i = 0
+        
+        for y in arrayOfWeatherData {
+            if i >= arrayOfWeatherData.count { break } else {
+                if y.cityID == cityID , !(datesForCompare.contains(where: {$0 == y.dataWeather} ))  {
+                    i += 1
+                    let text: TextData = .init(cityID: cityID,
+                                               dataWeather: y.dataWeather,
+                                               imageWeather: y.imageCollectionView,
+                                               vetPercent: y.valueRain,
+                                               descriptionWeather: y.descriptionWeather,
+                                               degreesseData: y.degreesseData)
+                    textDate.append(text)
+                    datesForCompare.append(y.dataWeather)
+                } else { i += 1}
+            }
+        }
+        
+        //        for y in 0...arrayOfWeatherData.count-1 {
+        //
+        //            if i >= arrayOfWeatherData.count { break } else {
+        //
+        //                //            if datesForCompare.contains(where: {$0 == arrayOfWeatherData[y].textTimeWeather} ) { continue } else {
+        //
+        //                if arrayOfWeatherData[y].cityID == cityID {
+        //
+        //                    if datesForCompare.contains(where: {$0 == arrayOfWeatherData[y].textTimeWeather} ) { i += 1 } else {
+        //                        i += 1
+        //                        let text: TextData = .init(cityID: cityID,
+        //                                                   dataWeather: arrayOfWeatherData[y].dataWeather,
+        //                                                   imageWeather: arrayOfWeatherData[y].imageCollectionView,
+        //                                                   vetPercent: arrayOfWeatherData[y].valueRain,
+        //                                                   descriptionWeather: arrayOfWeatherData[y].descriptionWeather,
+        //                                                   degreesseData: arrayOfWeatherData[y].degreesseData)
+        //                        textDate.append(text)
+        //                        datesForCompare.append(arrayOfWeatherData[y].textTimeWeather)
+        //                    }
+        //                }}}
+        
+        // сортируем данные по времени от меньшего к большему
+        textDate.sort { $0.dataWeather < $1.dataWeather }
+        print("Данные для расширения погоды (вниз строки) - ", textDate)
+        return textDate
+    }
+    
+    
     
     private func setupNavigationBar(){
         if arrayOfWeatherData.count == 0 {

@@ -23,12 +23,14 @@ struct HeaderData {
 }
 
 struct MiniData {
+    var cityID: Int32
     var textTimeWeather: String
     var imageCollectionView: UIImage
     var textWeather: String
 }
 
 struct TextData {
+    var cityID: Int32
     var dataWeather: String
     var imageWeather: UIImage
     var vetPercent: String

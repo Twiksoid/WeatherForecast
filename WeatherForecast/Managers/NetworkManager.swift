@@ -99,7 +99,7 @@ struct NetworkManager {
                     print(error.localizedDescription)
                 }
             }
-            print("ошибка завершения таски какая-то ", task.error ?? "ошибок нет")
+            print("Покажем текст ошибки таски, если есть - ", task.error ?? "Ошибок в обработке таски нет")
             task.resume()
         } else {
             print("URL is nil!")

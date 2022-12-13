@@ -64,8 +64,10 @@ class MiniWeatherCollectionViewCell: UICollectionViewCell {
     }
     
     
-    //   func setupCell(for data: MiniData)
-    func setupCell(for data: AllWeatherData){
+    //  func setupCell(for data: MiniData)
+    //   func setupCell(for data: AllWeatherData){
+    
+    func setupCell(for data: MiniData){
         textTimeWeather.text = data.textTimeWeather
         imageCollectionView.image = data.imageCollectionView
         textWeather.text = data.textWeather

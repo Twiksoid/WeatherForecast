@@ -72,7 +72,7 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
             
             imageWeather.topAnchor.constraint(equalTo: dataWeather.bottomAnchor, constant: 5),
             imageWeather.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            imageWeather.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -25),
+            imageWeather.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             imageWeather.heightAnchor.constraint(equalToConstant: 40),
             imageWeather.widthAnchor.constraint(equalToConstant: 40),
             
@@ -98,12 +98,12 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
     
     
     // func setupCell(for data: TextData)
-    func setupCell(for data: AllWeatherData){
+    // func setupCell(for data: AllWeatherData){
+    func setupCell(for data: TextData){
         dataWeather.text = data.dataWeather
         imageWeather.image = data.imageWeather
         vetPercent.text = data.vetPercent
-        //    descriptionWeather.text = data.descriptionWeather
-        descriptionWeather.text = data.extraTextWeather
+        descriptionWeather.text = data.descriptionWeather
         degreesseData.text = data.degreesseData
     }
     

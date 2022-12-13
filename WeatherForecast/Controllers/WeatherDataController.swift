@@ -18,8 +18,8 @@ class WeatherDataController: UIViewController {
     
     var allWeatherData: AllWeatherData?
     //    var header: HeaderData?
-    //    var mini: MiniData?
-    //    var text: TextData?
+    var mini: [MiniData]?
+    var text: [TextData]?
     var addressOfCity: String?
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
@@ -34,7 +34,7 @@ class WeatherDataController: UIViewController {
     }()
     
     @objc private func imageTapped(){
-
+        
         let alert = UIAlertController(title: Constants.alarmAddTownTitle,
                                       message: Constants.alarmAddTownText,
                                       preferredStyle: .alert)
@@ -49,7 +49,7 @@ class WeatherDataController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 15
-        layout.minimumInteritemSpacing = 15
+        layout.minimumInteritemSpacing = 25
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         return layout
     }()
@@ -72,7 +72,9 @@ class WeatherDataController: UIViewController {
          addressOfCity: String? = nil,
          latitude: CLLocationDegrees? = nil,
          longitude: CLLocationDegrees? = nil,
-         isInit: Bool? = nil
+         isInit: Bool? = nil,
+         weatherMini: [MiniData]? = nil,
+         textWeather: [TextData]? = nil
          // , imagePlusButton: UIButton? = nil
          // , layout: UICollectionViewFlowLayout? = nil,
          // collectionView: UICollectionView? = nil) {
@@ -86,8 +88,8 @@ class WeatherDataController: UIViewController {
         //   self.collectionView = collectionView!
         self.allWeatherData = allweatherData
         //        self.header = weatherHeder
-        //        self.mini = weatherMini
-        //        self.text = weatherText
+        self.mini = weatherMini
+        self.text = textWeather
         self.isInit = isInit
     }
     
@@ -95,13 +97,13 @@ class WeatherDataController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-//        required init?(coder: NSCoder) {
-//            fatalError("init(coder:) has not been implemented")
-//        }
+    //        required init?(coder: NSCoder) {
+    //            fatalError("init(coder:) has not been implemented")
+    //        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if CoreDataManager.shared.city.count == 0 && isInit == true {
             collectionView.isHidden = true
             view.addSubview(imagePlusButton)
@@ -112,7 +114,7 @@ class WeatherDataController: UIViewController {
                 imagePlusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 imagePlusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
         } else {
-          //  getDataForCurrentLocation()
+            //  getDataForCurrentLocation()
         }
         
         setupView()
@@ -139,49 +141,49 @@ class WeatherDataController: UIViewController {
         ])
     }
     
-//  private func setupNavigationBar(){
-//        navigationItem.title = "Test weather data"
-//        navigationController?.navigationBar.backgroundColor = .systemBackground
-//        navigationController?.navigationBar.prefersLargeTitles = false
-//
-//        // создаю новый объект в верхнем баре
-//        let settings = UIBarButtonItem(image: UIImage(systemName: "server.rack"),
-//                                       style: .plain,
-//                                       target: self,
-//                                       action: #selector(settingsTapped))
-//        let newTown = UIBarButtonItem(image: UIImage(systemName: "location.magnifyingglass"),
-//                                      style: .plain,
-//                                      target: self,
-//                                      action: #selector(newTownTapped))
-//
-//        // добавляю его в доступные к выводу справа и слева
-//        navigationItem.rightBarButtonItems = [newTown]
-//        navigationItem.leftBarButtonItems = [settings]
-//    }
-//
-//    @objc private func settingsTapped() {
-//        navigationController?.pushViewController(SettingsController(), animated: true)
-//    }
-//    @objc private func newTownTapped() {
-//        // тут нужно уже не локацию спрашивать, а алерт показывать
-//        // чтобы из этого алерта захватить город и передать его в модель
-//        TextPicker.defaultPicker.getText(in: self) { text in
-//            self.addressOfCity = text
-//            if self.addressOfCity != "" || self.addressOfCity != nil {
-//                LocationManager.shared.forwardGeocoding(address: self.addressOfCity!) { data in
-//                    self.latitude = data.latitude
-//                    self.longitude = data.longitude
-//
-//                    print(self.addressOfCity!)
-//                    print(self.latitude!)
-//                    print(self.longitude!)
-//
-//                    self.getDataLocationFor(lat: self.latitude!, lot: self.longitude!)
-//                } } else {
-//                    print("nil field")
-//                }
-//        }
-//    }
+    //  private func setupNavigationBar(){
+    //        navigationItem.title = "Test weather data"
+    //        navigationController?.navigationBar.backgroundColor = .systemBackground
+    //        navigationController?.navigationBar.prefersLargeTitles = false
+    //
+    //        // создаю новый объект в верхнем баре
+    //        let settings = UIBarButtonItem(image: UIImage(systemName: "server.rack"),
+    //                                       style: .plain,
+    //                                       target: self,
+    //                                       action: #selector(settingsTapped))
+    //        let newTown = UIBarButtonItem(image: UIImage(systemName: "location.magnifyingglass"),
+    //                                      style: .plain,
+    //                                      target: self,
+    //                                      action: #selector(newTownTapped))
+    //
+    //        // добавляю его в доступные к выводу справа и слева
+    //        navigationItem.rightBarButtonItems = [newTown]
+    //        navigationItem.leftBarButtonItems = [settings]
+    //    }
+    //
+    //    @objc private func settingsTapped() {
+    //        navigationController?.pushViewController(SettingsController(), animated: true)
+    //    }
+    //    @objc private func newTownTapped() {
+    //        // тут нужно уже не локацию спрашивать, а алерт показывать
+    //        // чтобы из этого алерта захватить город и передать его в модель
+    //        TextPicker.defaultPicker.getText(in: self) { text in
+    //            self.addressOfCity = text
+    //            if self.addressOfCity != "" || self.addressOfCity != nil {
+    //                LocationManager.shared.forwardGeocoding(address: self.addressOfCity!) { data in
+    //                    self.latitude = data.latitude
+    //                    self.longitude = data.longitude
+    //
+    //                    print(self.addressOfCity!)
+    //                    print(self.latitude!)
+    //                    print(self.longitude!)
+    //
+    //                    self.getDataLocationFor(lat: self.latitude!, lot: self.longitude!)
+    //                } } else {
+    //                    print("nil field")
+    //                }
+    //        }
+    //    }
     
     private func getDataLocationFor(lat: CLLocationDegrees, lot: CLLocationDegrees){
         
@@ -217,7 +219,17 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
     // секция 3, деталка
     // средние значения: для айфона 5 вместится, для айпада 11
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {return 1} else if section == 1 {return Int((collectionView.frame.width - 50 ) / 60)}  else { return 19 }
+        if section == 0 {return 1} else if section == 1 {
+            // поскольку хотим поместить ячейки в ряд, а не листом, то нужно извратиться
+            // высчитываем средний размер ячейки
+            // относим его к размеру устройства
+            // получаем количество ячеек, которые можем одновременно отразить (делать скролл не вижу смысла)
+            let valueForDisplay = Int((collectionView.frame.width - 60 ) / 80)
+            let valueFromMini = mini?.count ?? 0
+            if valueFromMini >= valueForDisplay {return valueForDisplay} else if valueFromMini <= valueForDisplay { return valueFromMini} else { return 0}
+        }  else {
+            return text?.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -225,18 +237,20 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as? HeaderCollectionViewCell {
                 cell.setupCell(for: allWeatherData ?? allWeatherData1)
                 return cell
-            } else {let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
+            } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
                 return cell}
         } else if indexPath.section == 1 {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniWeather", for: indexPath) as? MiniWeatherCollectionViewCell {
-                cell.setupCell(for: allWeatherData ?? allWeatherData1)
+                // cell.setupCell(for: allWeatherData ?? allWeatherData1)
+                cell.setupCell(for: mini?[indexPath.row] ?? miniDataExample)
                 return cell
-            } else {let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
-                return cell}} else {
+            } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
+                return cell }} else {
                     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as? TextWeatherDataCollectionViewCell {
-                        cell.setupCell(for: allWeatherData ?? allWeatherData1)
+                        // cell.setupCell(for: allWeatherData ?? allWeatherData1)
+                        cell.setupCell(for: text?[indexPath.row] ?? textDataExample)
                         return cell
-                    } else {let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
+                    } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
                         return cell}
                 }
     }
@@ -245,7 +259,7 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
         if indexPath.section == 0 {
             return CGSize(width: collectionView.frame.width, height: 250)
         } else if indexPath.section == 1 {
-            return CGSize(width: 50, height: 70)
+            return CGSize(width: 65, height: 70)
         } else {
             return CGSize(width: collectionView.frame.width-10, height: 80)
         }

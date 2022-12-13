@@ -43,6 +43,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     private lazy var imageRise: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         image.image = UIImage(systemName: "sunrise.fill")
+        image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -58,6 +59,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     private lazy var imageSunset: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         image.image = UIImage(systemName: "sunset.fill")
+        image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -82,6 +84,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageVisible: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -96,6 +99,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageRain: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -110,6 +114,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageWind: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
