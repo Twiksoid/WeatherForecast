@@ -198,8 +198,9 @@ class PageViewController: UIPageViewController {
     
     
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-    }
+        
+            super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        }
     
     //    required init?(coder: NSCoder) {
     //        fatalError("init(coder:) has not been implemented")
@@ -216,6 +217,7 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         if let vc  = viewController as? WeatherDataController {
             if let indexOfVC = arrayOfWVC.firstIndex(of: vc) {
                 if indexOfVC > 0 {
+                    vc.reloadData()
                     return arrayOfWVC[indexOfVC - 1] }
             }} else { return nil}
         return nil
@@ -225,6 +227,7 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         if let vc  = viewController as? WeatherDataController {
             if let indexOfVC = arrayOfWVC.firstIndex(of: vc) {
                 if indexOfVC < arrayOfWVC.count - 1 {
+                    vc.reloadData()
                     return arrayOfWVC[indexOfVC + 1]
                 }
             }} else { return nil}

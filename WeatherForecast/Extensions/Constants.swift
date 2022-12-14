@@ -10,7 +10,7 @@ import UIKit
 enum APIData {
     static let apiKey = "21e407b6a635ca68d252e0d177d3b9cf"
     static let urlHTTPS = "https://api.openweathermap.org/data/2.5/forecast?"
-    static let cnt = 40
+    static let cnt = 8
     static let lang = "ru"
     static let urlAPI = "http://api.api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&cnt={40}&appid={API key}&units={Unit}&lang={ru}"
     static let metric = "metric" // м и км и Сº
@@ -174,4 +174,15 @@ extension UIImage {
             return UIImage(systemName: "ladybug")!
         }
     }
+}
+
+extension String {
+    func size(withSystemFontSize pointSize: CGFloat) -> CGSize {
+        return (self as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: pointSize)])
+    }
+}
+
+extension CGPoint {
+    func adding(x: CGFloat) -> CGPoint { return CGPoint(x: self.x + x, y: self.y) }
+    func adding(y: CGFloat) -> CGPoint { return CGPoint(x: self.x, y: self.y + y) }
 }

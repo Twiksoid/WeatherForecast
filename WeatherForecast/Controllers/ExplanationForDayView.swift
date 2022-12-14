@@ -64,6 +64,7 @@ class ExplanationForDayView: UICollectionReusableView, UIGestureRecognizerDelega
         case 2:
             label.text = "Ежедневный прогноз на ближайшие дни"
             label.textAlignment = .left
+            label.isUserInteractionEnabled = false
         default:
             label.text = ""
         }

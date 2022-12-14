@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Charts
 
 class HeaderView: UITableViewHeaderFooterView {
-    
+
     private lazy var titleTextField: UITextField = {
         let titleField = UITextField()
         titleField.textColor = .black
@@ -32,10 +33,8 @@ class HeaderView: UITableViewHeaderFooterView {
         addSubview(titleTextField)
         
         NSLayoutConstraint.activate([
-            
             titleTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
-            
+            titleTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
     
