@@ -236,7 +236,7 @@ class DetailCell: UITableViewCell {
     func setupCell(for dataForDay: DataForDay) {
         dataText.text = dataForDay.dataWeather
         timeText.text = dataForDay.textTimeWeather
-        tempText.text = dataForDay.currentWeatherValue
+        tempText.text = dataForDay.currentWeatherValue + "º"
         generalImage.image = dataForDay.imageGeneral
         generalText.text = dataForDay.descriptionWeather + " " + dataForDay.currentWeatherValue
         windImage.image = dataForDay.imageWind

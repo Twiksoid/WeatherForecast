@@ -66,7 +66,7 @@ extension CertainDayWeatherDataController: UITableViewDataSource, UITableViewDel
         
         if section == 0 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? HeaderView {
-                headerView.setupHeader()
+                headerView.setupHeader(for: dataForCity)
                 return headerView
             } else {
                 return nil

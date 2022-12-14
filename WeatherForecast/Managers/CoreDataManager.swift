@@ -44,14 +44,14 @@ class CoreDataManager {
     
     func getDataForCertainTown(for cityID: Int32) -> [DataForDay] {
         var arrayOfData = [DataForDay]()
-        let currentDay = Date()
+        //let currentDay = Date()
         let fortatter = DateFormatter()
         fortatter.timeStyle = .short
         fortatter.dateStyle = .full
         
         let requstGeneralTable = GeneralTable.fetchRequest()
         let predicateCityID = NSPredicate(format: "cityID = %@", String(cityID))
-        let currentTime = Int32(Date().timeIntervalSince1970)
+        //let currentTime = Int32(Date().timeIntervalSince1970)
         
         requstGeneralTable.predicate = predicateCityID
         
@@ -68,7 +68,7 @@ class CoreDataManager {
             let data: DataForDay = .init(cityID: generalWeatherData[i].cityID,
                                          dataWeather: dateForPrediction,
                                          textTimeWeather: timeForPrediction,
-                                         currentWeatherValue: String(Int(generalWeatherData[i].temp)) + "º",
+                                         currentWeatherValue: String(Int(generalWeatherData[i].temp)),
                                          imageGeneral: UIImage(systemName: "moon")!, descriptionWeather: String(generalWeatherData[i].descW ?? ""),
                                          imageWind: UIImage(systemName: "wind")!, valueWind: String(Int(generalWeatherData[i].speed)) + "м/с",
                                          imageRain: UIImage(systemName: "cloud.rain")!,
