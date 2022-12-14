@@ -17,11 +17,11 @@ class CoreDataManager {
     }
     
     var settings = [Settings]()
-//    var list = [ListTable]()
-//    var cloud = [CloudsTable]()
-//    var main = [MainTable]()
-//    var weather = [WeatherTable]()
-//    var wind = [WindTable]()
+    //    var list = [ListTable]()
+    //    var cloud = [CloudsTable]()
+    //    var main = [MainTable]()
+    //    var weather = [WeatherTable]()
+    //    var wind = [WindTable]()
     var city = [CityTable]()
     var general = [GeneralTable]()
     
@@ -42,6 +42,44 @@ class CoreDataManager {
         self.city = cities ?? []
     }
     
+    func getDataForCertainTown(for cityID: Int32) -> [DataForDay] {
+        var arrayOfData = [DataForDay]()
+        let currentDay = Date()
+        let fortatter = DateFormatter()
+        fortatter.timeStyle = .short
+        fortatter.dateStyle = .full
+        
+        let requstGeneralTable = GeneralTable.fetchRequest()
+        let predicateCityID = NSPredicate(format: "cityID = %@", String(cityID))
+        let currentTime = Int32(Date().timeIntervalSince1970)
+        
+        requstGeneralTable.predicate = predicateCityID
+        
+        var generalWeatherData = (try? persistentContainer.viewContext.fetch(requstGeneralTable)) ?? []
+        
+        // сортируем даты от меньшего к большему
+        generalWeatherData.sort { $0.dt < $1.dt }
+        
+        for i in 0...generalWeatherData.count-1 {
+            
+            let timeForPrediction = getTime(forValue: generalWeatherData[i].dt)
+            let dateForPrediction = getData(forValue: generalWeatherData[i].dt)
+            
+            let data: DataForDay = .init(cityID: generalWeatherData[i].cityID,
+                                         dataWeather: dateForPrediction,
+                                         textTimeWeather: timeForPrediction,
+                                         currentWeatherValue: String(Int(generalWeatherData[i].temp)) + "º",
+                                         imageGeneral: UIImage(systemName: "moon")!, descriptionWeather: String(generalWeatherData[i].descW ?? ""),
+                                         imageWind: UIImage(systemName: "wind")!, valueWind: String(Int(generalWeatherData[i].speed)) + "м/с",
+                                         imageRain: UIImage(systemName: "cloud.rain")!,
+                                         valueRain: "0%" ,
+                                         imageVisible: UIImage(systemName: "cloud.fill")!,
+                                         valueVisible: String(Int(generalWeatherData[i].pop)) + "%")
+            
+            arrayOfData.append(data)
+        }
+        return arrayOfData
+    }
     
     func getDataForCities() -> [AllWeatherData] {
         getFavoriteCities()
@@ -72,34 +110,34 @@ class CoreDataManager {
                 // сортируем даты от меньшего к большему
                 generalWeatherData.sort { $0.dt < $1.dt }
                 
-                for i in 0...generalWeatherData.count-1 {
+                for i in generalWeatherData {
                     
-                    let timeForPrediction = getTime(forValue: generalWeatherData[i].dt)
-                    let DateForPrediction = getData(forValue: generalWeatherData[i].dt)
+                    let timeForPrediction = getTime(forValue: i.dt)
+                    let DateForPrediction = getData(forValue: i.dt)
                     
                     let data = AllWeatherData(
-                        cityID: generalWeatherData[i].cityID,
-                        cityName: generalWeatherData[i].cityName!,
-                        minMaxWeather: "\(String(Int(generalWeatherData[i].temp_min)))º / \(String(Int(generalWeatherData[i].temp_max)))º" ,
-                        currentWeatherValue: String(Int(generalWeatherData[i].temp)) + "º",
-                        descriptionWeather: String(generalWeatherData[i].descW ?? ""),
+                        cityID: i.cityID,
+                        cityName: i.cityName!,
+                        minMaxWeather: "\(String(Int(i.temp_min)))º / \(String(Int(i.temp_max)))º" ,
+                        currentWeatherValue: String(Int(i.temp)) + "º",
+                        descriptionWeather: String(i.descW ?? ""),
                         timeRise: getTime(forValue: cityObject.sunrise),
                         timeSunset: getTime(forValue: cityObject.sunset),
                         generalWeatherInfo: currentDateTime,
                         imageVisible: UIImage(systemName: "smoke")!,
-                        valueVisible: String(Int(generalWeatherData[i].pop)) + "%",
+                        valueVisible: String(Int(i.pop)) + "%",
                         imageRain: UIImage(systemName: "cloud.rain")!,
                         valueRain: "0%",
                         imageWind: UIImage(systemName: "wind")!,
-                        valueWind: String(Int(generalWeatherData[i].speed)) + "м/с",
+                        valueWind: String(Int(i.speed)) + "м/с",
                         textTimeWeather: timeForPrediction,
-                        imageCollectionView: UIImage(named: String(generalWeatherData[i].icon!))!,
-                        textWeather: String(Int(generalWeatherData[i].temp)) + "º",
+                        imageCollectionView: UIImage(named: String(i.icon!))!,
+                        textWeather: String(Int(i.temp)) + "º",
                         dataWeather: DateForPrediction,
-                        imageWeather: UIImage(named: String(generalWeatherData[i].icon!))!,
-                        vetPercent: String(Int(generalWeatherData[i].humidity)) + "%",
-                        extraTextWeather: String(generalWeatherData[i].descW ?? ""),
-                        degreesseData: "\(String(Int(generalWeatherData[i].temp_min)))º- \(String(Int(generalWeatherData[i].temp_max)))º")
+                        imageWeather: UIImage(named: String(i.icon!))!,
+                        vetPercent: String(Int(i.humidity)) + "%",
+                        extraTextWeather: String(i.descW ?? ""),
+                        degreesseData: "\(String(Int(i.temp_min)))º- \(String(Int(i.temp_max)))º")
                     
                     arrayOfWeatherData.append(data)
                 }}}
@@ -126,29 +164,29 @@ class CoreDataManager {
     
     // проверим наличие данных в таблицах
     func checkData(){
-//        let requestForList = ListTable.fetchRequest()
-//        let list = (try? persistentContainer.viewContext.fetch(requestForList))
-//        self.list = list ?? []
-//
-//        let requestForCloud = CloudsTable.fetchRequest()
-//        let cloud = (try? persistentContainer.viewContext.fetch(requestForCloud))
-//        self.cloud = cloud ?? []
-//
-//        let requestForMain = MainTable.fetchRequest()
-//        let main = (try? persistentContainer.viewContext.fetch(requestForMain))
-//        self.main = main ?? []
-//
-//        let requestForWeather = WeatherTable.fetchRequest()
-//        let weather = (try? persistentContainer.viewContext.fetch(requestForWeather))
-//        self.weather = weather ?? []
-//
-//        let requestForWind = WindTable.fetchRequest()
-//        let wind = (try? persistentContainer.viewContext.fetch(requestForWind))
-//        self.wind = wind ?? []
-//
-//        let requestForCity = CityTable.fetchRequest()
-//        let city = (try? persistentContainer.viewContext.fetch(requestForCity))
-//        self.city = city ?? []
+        //        let requestForList = ListTable.fetchRequest()
+        //        let list = (try? persistentContainer.viewContext.fetch(requestForList))
+        //        self.list = list ?? []
+        //
+        //        let requestForCloud = CloudsTable.fetchRequest()
+        //        let cloud = (try? persistentContainer.viewContext.fetch(requestForCloud))
+        //        self.cloud = cloud ?? []
+        //
+        //        let requestForMain = MainTable.fetchRequest()
+        //        let main = (try? persistentContainer.viewContext.fetch(requestForMain))
+        //        self.main = main ?? []
+        //
+        //        let requestForWeather = WeatherTable.fetchRequest()
+        //        let weather = (try? persistentContainer.viewContext.fetch(requestForWeather))
+        //        self.weather = weather ?? []
+        //
+        //        let requestForWind = WindTable.fetchRequest()
+        //        let wind = (try? persistentContainer.viewContext.fetch(requestForWind))
+        //        self.wind = wind ?? []
+        //
+        //        let requestForCity = CityTable.fetchRequest()
+        //        let city = (try? persistentContainer.viewContext.fetch(requestForCity))
+        //        self.city = city ?? []
         
         let requestForGeneral = GeneralTable.fetchRequest()
         let general = (try? persistentContainer.viewContext.fetch(requestForGeneral))
@@ -222,7 +260,7 @@ class CoreDataManager {
                     
                     try? contexBackgroundWeather.save()
                     DispatchQueue.main.async {
-                      //  self.reloadData()
+                        //  self.reloadData()
                         self.checkData()
                     }
                 }
@@ -266,11 +304,11 @@ class CoreDataManager {
     }
     
     func deleteAllData(general: [GeneralTable]){
-            for i in 0...general.count-1 {
-                persistentContainer.viewContext.delete(general[i])
-                saveContext()
-            }
+        for i in 0...general.count-1 {
+            persistentContainer.viewContext.delete(general[i])
+            saveContext()
         }
+    }
     
     
     // MARK: - Core Data Saving support

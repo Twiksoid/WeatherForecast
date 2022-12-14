@@ -10,13 +10,11 @@ import UIKit
 enum APIData {
     static let apiKey = "21e407b6a635ca68d252e0d177d3b9cf"
     static let urlHTTPS = "https://api.openweathermap.org/data/2.5/forecast?"
-    static let cnt = 8
+    static let cnt = 40
     static let lang = "ru"
     static let urlAPI = "http://api.api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&cnt={40}&appid={API key}&units={Unit}&lang={ru}"
-    
     static let metric = "metric" // м и км и Сº
     static let imperial = "imperial" // дюйм фунт и Fº
-    
     static let newURL = "https://api.openweathermap.org/data/2.5/forecast?lat=43.2585092&lon=76.9249928&cnt=40&appid=21e407b6a635ca68d252e0d177d3b9cf&units=metric&lang=ru"
     
 }
@@ -124,6 +122,7 @@ extension UIColor {
     static let specialBlue = UIColor(red: 31 / 255, green: 77 / 255, blue: 191 / 255, alpha: 1)
     static let specialGrey = UIColor(red: 254 / 255, green: 237 / 255, blue: 233 / 255, alpha: 1)
     static let specialGold = UIColor(red: 246 / 255, green: 221 / 255, blue: 1 / 255, alpha: 1)
+    static let specialLightBlue = UIColor(red: 233 / 1, green: 238 / 1, blue: 250 / 1, alpha: 1)
 }
 
 extension Double {

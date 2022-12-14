@@ -128,40 +128,15 @@ class PageViewController: UIPageViewController {
             }
         }
         
-        //        for y in 0...arrayOfWeatherData.count-1 {
-        //
-        //            if i >= arrayOfWeatherData.count { break } else {
-        //
-        //                //            if datesForCompare.contains(where: {$0 == arrayOfWeatherData[y].textTimeWeather} ) { continue } else {
-        //
-        //                if arrayOfWeatherData[y].cityID == cityID {
-        //
-        //                    if datesForCompare.contains(where: {$0 == arrayOfWeatherData[y].textTimeWeather} ) { i += 1 } else {
-        //                        i += 1
-        //                        let text: TextData = .init(cityID: cityID,
-        //                                                   dataWeather: arrayOfWeatherData[y].dataWeather,
-        //                                                   imageWeather: arrayOfWeatherData[y].imageCollectionView,
-        //                                                   vetPercent: arrayOfWeatherData[y].valueRain,
-        //                                                   descriptionWeather: arrayOfWeatherData[y].descriptionWeather,
-        //                                                   degreesseData: arrayOfWeatherData[y].degreesseData)
-        //                        textDate.append(text)
-        //                        datesForCompare.append(arrayOfWeatherData[y].textTimeWeather)
-        //                    }
-        //                }}}
-        
         // сортируем данные по времени от меньшего к большему
         textDate.sort { $0.dataWeather < $1.dataWeather }
-        print("Данные для расширения погоды (вниз строки) - ", textDate)
         return textDate
     }
-    
-    
     
     private func setupNavigationBar(){
         if arrayOfWeatherData.count == 0 {
             navigationItem.title = Constants.defaultTownName
-        } else {
-            navigationItem.title = arrayOfWeatherData[0].cityName}
+        } else { navigationItem.title = arrayOfWeatherData[0].cityName}
         navigationController?.navigationBar.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = false
         
@@ -240,7 +215,8 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         
         if let vc  = viewController as? WeatherDataController {
             if let indexOfVC = arrayOfWVC.firstIndex(of: vc) {
-                if indexOfVC > 0 { return arrayOfWVC[indexOfVC - 1] }
+                if indexOfVC > 0 {
+                    return arrayOfWVC[indexOfVC - 1] }
             }} else { return nil}
         return nil
     }
@@ -249,12 +225,6 @@ extension PageViewController: UIPageViewControllerDataSource, UIPageViewControll
         if let vc  = viewController as? WeatherDataController {
             if let indexOfVC = arrayOfWVC.firstIndex(of: vc) {
                 if indexOfVC < arrayOfWVC.count - 1 {
-                    print("changed PageViewController")
-                    
-                    DispatchQueue.main.async {
-                        print(self.arrayOfWeatherData[indexOfVC].cityName)
-                        self.navigationController?.title = self.arrayOfWeatherData[indexOfVC].cityName
-                    }
                     return arrayOfWVC[indexOfVC + 1]
                 }
             }} else { return nil}

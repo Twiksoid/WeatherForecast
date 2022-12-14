@@ -38,6 +38,21 @@ struct TextData {
     var degreesseData: String
 }
 
+struct DataForDay {
+    var cityID: Int32
+    var dataWeather: String
+    var textTimeWeather: String
+    var currentWeatherValue: String
+    var imageGeneral: UIImage
+    var descriptionWeather: String
+    var imageWind: UIImage
+    var valueWind: String
+    var imageRain: UIImage
+    var valueRain: String
+    var imageVisible: UIImage
+    var valueVisible: String
+}
+
 struct AllWeatherData {
     var cityID: Int32
     var cityName: String

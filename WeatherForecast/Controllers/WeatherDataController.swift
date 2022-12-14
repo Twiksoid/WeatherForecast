@@ -13,6 +13,7 @@ class WeatherDataController: UIViewController {
     weak var pageMainSceneDelegate: PageViewController?
     
     func reloadData(){
+        collectionView.reloadData()
         self.imagePlusButton.isHidden = true
     }
     
@@ -64,6 +65,7 @@ class WeatherDataController: UIViewController {
         collection.register(HeaderCollectionViewCell.self, forCellWithReuseIdentifier: "HeaderCell")
         collection.register(MiniWeatherCollectionViewCell.self, forCellWithReuseIdentifier: "MiniWeather")
         collection.register(TextWeatherDataCollectionViewCell.self, forCellWithReuseIdentifier: "TextCell")
+        collection.register(ExplanationForDayView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ExplanationForDayView")
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
@@ -141,50 +143,6 @@ class WeatherDataController: UIViewController {
         ])
     }
     
-    //  private func setupNavigationBar(){
-    //        navigationItem.title = "Test weather data"
-    //        navigationController?.navigationBar.backgroundColor = .systemBackground
-    //        navigationController?.navigationBar.prefersLargeTitles = false
-    //
-    //        // создаю новый объект в верхнем баре
-    //        let settings = UIBarButtonItem(image: UIImage(systemName: "server.rack"),
-    //                                       style: .plain,
-    //                                       target: self,
-    //                                       action: #selector(settingsTapped))
-    //        let newTown = UIBarButtonItem(image: UIImage(systemName: "location.magnifyingglass"),
-    //                                      style: .plain,
-    //                                      target: self,
-    //                                      action: #selector(newTownTapped))
-    //
-    //        // добавляю его в доступные к выводу справа и слева
-    //        navigationItem.rightBarButtonItems = [newTown]
-    //        navigationItem.leftBarButtonItems = [settings]
-    //    }
-    //
-    //    @objc private func settingsTapped() {
-    //        navigationController?.pushViewController(SettingsController(), animated: true)
-    //    }
-    //    @objc private func newTownTapped() {
-    //        // тут нужно уже не локацию спрашивать, а алерт показывать
-    //        // чтобы из этого алерта захватить город и передать его в модель
-    //        TextPicker.defaultPicker.getText(in: self) { text in
-    //            self.addressOfCity = text
-    //            if self.addressOfCity != "" || self.addressOfCity != nil {
-    //                LocationManager.shared.forwardGeocoding(address: self.addressOfCity!) { data in
-    //                    self.latitude = data.latitude
-    //                    self.longitude = data.longitude
-    //
-    //                    print(self.addressOfCity!)
-    //                    print(self.latitude!)
-    //                    print(self.longitude!)
-    //
-    //                    self.getDataLocationFor(lat: self.latitude!, lot: self.longitude!)
-    //                } } else {
-    //                    print("nil field")
-    //                }
-    //        }
-    //    }
-    
     private func getDataLocationFor(lat: CLLocationDegrees, lot: CLLocationDegrees){
         
         let tempValueFromSettings = CoreDataManager.shared.settings[0].temp
@@ -214,6 +172,23 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         3
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ExplanationForDayView", for: indexPath) as! ExplanationForDayView
+            sectionHeader.delegate = self
+            sectionHeader.dataForExtension = text
+            sectionHeader.setupCollectionHeader(forIndex: indexPath.section)
+            return sectionHeader
+        } else { // без футера
+            return UICollectionReusableView()
+        }}
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 22)
+    }
+    
     // секция 1, шапка
     // секция 2, мини прогноз
     // секция 3, деталка
@@ -241,13 +216,11 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
                 return cell}
         } else if indexPath.section == 1 {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniWeather", for: indexPath) as? MiniWeatherCollectionViewCell {
-                // cell.setupCell(for: allWeatherData ?? allWeatherData1)
                 cell.setupCell(for: mini?[indexPath.row] ?? miniDataExample)
                 return cell
             } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
                 return cell }} else {
                     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as? TextWeatherDataCollectionViewCell {
-                        // cell.setupCell(for: allWeatherData ?? allWeatherData1)
                         cell.setupCell(for: text?[indexPath.row] ?? textDataExample)
                         return cell
                     } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -262,6 +235,27 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
             return CGSize(width: 65, height: 70)
         } else {
             return CGSize(width: collectionView.frame.width-10, height: 80)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 {
+            
+            let viewNameToGo = CertainDayWeatherDataController()
+            viewNameToGo.delegateWeatherDataController = self
+            viewNameToGo.cityID = mini?[indexPath.row].cityID
+            
+            navigationController?.pushViewController(viewNameToGo, animated: true)
+        }
+        
+        if indexPath.section == 2 {
+            
+            let viewNameToGo = ExtendedWeatherDataController()
+            viewNameToGo.delegateWeatherDataController = self
+            viewNameToGo.cityID = text?[indexPath.row].cityID
+            
+            navigationController?.pushViewController(viewNameToGo, animated: true)
         }
     }
 }

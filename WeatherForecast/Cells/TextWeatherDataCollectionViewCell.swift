@@ -96,15 +96,12 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
         
     }
     
-    
-    // func setupCell(for data: TextData)
-    // func setupCell(for data: AllWeatherData){
     func setupCell(for data: TextData){
         dataWeather.text = data.dataWeather
         imageWeather.image = data.imageWeather
         vetPercent.text = data.vetPercent
         descriptionWeather.text = data.descriptionWeather
-        degreesseData.text = data.degreesseData
+        degreesseData.text = data.degreesseData + " >"
     }
     
 }
