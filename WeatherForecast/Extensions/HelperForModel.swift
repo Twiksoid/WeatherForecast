@@ -57,6 +57,7 @@ struct AllWeatherData {
     var cityID: Int32
     var cityName: String
     var minMaxWeather: String
+    var feels_like: String
     var currentWeatherValue: String
     var descriptionWeather: String
     var timeRise: String

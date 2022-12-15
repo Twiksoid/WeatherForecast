@@ -68,6 +68,7 @@ class DetailCell: UITableViewCell {
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
+    
     private lazy var windValue: UILabel = {
         let text = UILabel()
         text.textColor = .gray

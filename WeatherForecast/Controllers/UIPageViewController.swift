@@ -102,7 +102,6 @@ class PageViewController: UIPageViewController {
         
         // сортируем данные по времени от меньшего к большему
         miniDate.sort { $0.textTimeWeather < $1.textTimeWeather }
-        print("Данные для миниатюры погоды - ", miniDate)
         return miniDate
     }
     
@@ -199,12 +198,8 @@ class PageViewController: UIPageViewController {
     
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         
-            super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        }
-    
-    //    required init?(coder: NSCoder) {
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

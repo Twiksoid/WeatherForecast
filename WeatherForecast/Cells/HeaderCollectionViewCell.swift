@@ -246,8 +246,6 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    
-    //  func setupCell(for data: HeaderData)
     func setupCell(for data: AllWeatherData){
         minMaxWeather.text = data.minMaxWeather
         currentWeatherValue.text = data.currentWeatherValue

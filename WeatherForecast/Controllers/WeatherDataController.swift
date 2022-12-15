@@ -18,7 +18,6 @@ class WeatherDataController: UIViewController {
     }
     
     var allWeatherData: AllWeatherData?
-    //    var header: HeaderData?
     var mini: [MiniData]?
     var text: [TextData]?
     var addressOfCity: String?
@@ -77,19 +76,12 @@ class WeatherDataController: UIViewController {
          isInit: Bool? = nil,
          weatherMini: [MiniData]? = nil,
          textWeather: [TextData]? = nil
-         // , imagePlusButton: UIButton? = nil
-         // , layout: UICollectionViewFlowLayout? = nil,
-         // collectionView: UICollectionView? = nil) {
     ){
         super.init(nibName: nil, bundle: nil)
         self.addressOfCity = addressOfCity
         self.latitude = latitude
         self.longitude = longitude
-        //   self.imagePlusButton = imagePlusButton
-        //  self.layout = layout!
-        //   self.collectionView = collectionView!
         self.allWeatherData = allweatherData
-        //        self.header = weatherHeder
         self.mini = weatherMini
         self.text = textWeather
         self.isInit = isInit
@@ -98,10 +90,6 @@ class WeatherDataController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    //        required init?(coder: NSCoder) {
-    //            fatalError("init(coder:) has not been implemented")
-    //        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +104,7 @@ class WeatherDataController: UIViewController {
                 imagePlusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 imagePlusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
         } else {
+            // тут циклится тогда
             //  getDataForCurrentLocation()
         }
         
@@ -254,6 +243,7 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
             let viewNameToGo = ExtendedWeatherDataController()
             viewNameToGo.delegateWeatherDataController = self
             viewNameToGo.cityID = text?[indexPath.row].cityID
+            viewNameToGo.dayForCity = text?[indexPath.row].dataWeather
             
             navigationController?.pushViewController(viewNameToGo, animated: true)
         }

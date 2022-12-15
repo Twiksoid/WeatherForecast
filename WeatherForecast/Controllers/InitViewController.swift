@@ -54,18 +54,18 @@ class InitViewController: UINavigationController {
         }
     }
     
-   private func setupView(){
+    private func setupView(){
         view.backgroundColor = .white
         view.addSubview(text)
         
         NSLayoutConstraint.activate([
-        
+            
             text.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             text.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
-   @objc private func makeRootController(){
+    @objc private func makeRootController(){
         var viewControllerForShowing: UIViewController
         viewControllerForShowing = PageViewController()
         

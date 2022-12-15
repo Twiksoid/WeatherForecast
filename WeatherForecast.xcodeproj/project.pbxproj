@@ -32,6 +32,8 @@
 		1D71268F2949A5CD007E37A4 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71268E2949A5CD007E37A4 /* DetailCell.swift */; };
 		1D7126912949A616007E37A4 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7126902949A616007E37A4 /* HeaderView.swift */; };
 		1D7126932949ECD0007E37A4 /* ExplanationForDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7126922949ECD0007E37A4 /* ExplanationForDayView.swift */; };
+		1D8C6987294AF83200E9FD91 /* HeaderDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C6986294AF83200E9FD91 /* HeaderDate.swift */; };
+		1D8C6989294AFA3D00E9FD91 /* WeatherCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C6988294AFA3D00E9FD91 /* WeatherCardCell.swift */; };
 		7C35C68C14F65B7540CA083A /* Pods_WeatherForecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3456CD949DA57FFCF8984C /* Pods_WeatherForecast.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,8 +63,10 @@
 		1D71268529489C42007E37A4 /* MiniWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D71268729489C50007E37A4 /* TextWeatherDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWeatherDataCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D71268E2949A5CD007E37A4 /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailCell.swift; path = WeatherForecast/Controllers/DetailCell.swift; sourceTree = SOURCE_ROOT; };
-		1D7126902949A616007E37A4 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = WeatherForecast/Controllers/HeaderView.swift; sourceTree = SOURCE_ROOT; };
-		1D7126922949ECD0007E37A4 /* ExplanationForDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExplanationForDayView.swift; path = WeatherForecast/Controllers/ExplanationForDayView.swift; sourceTree = SOURCE_ROOT; };
+		1D7126902949A616007E37A4 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = WeatherForecast/Extensions/View/HeaderView.swift; sourceTree = SOURCE_ROOT; };
+		1D7126922949ECD0007E37A4 /* ExplanationForDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExplanationForDayView.swift; path = WeatherForecast/Extensions/View/ExplanationForDayView.swift; sourceTree = SOURCE_ROOT; };
+		1D8C6986294AF83200E9FD91 /* HeaderDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderDate.swift; path = WeatherForecast/Extensions/View/HeaderDate.swift; sourceTree = SOURCE_ROOT; };
+		1D8C6988294AFA3D00E9FD91 /* WeatherCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherCardCell.swift; path = WeatherForecast/Controllers/WeatherCardCell.swift; sourceTree = SOURCE_ROOT; };
 		86B75B68FE30C94B83D02535 /* Pods-WeatherForecast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherForecast.debug.xcconfig"; path = "Target Support Files/Pods-WeatherForecast/Pods-WeatherForecast.debug.xcconfig"; sourceTree = "<group>"; };
 		BC68B6328366462D7ECD8640 /* Pods-WeatherForecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherForecast.release.xcconfig"; path = "Target Support Files/Pods-WeatherForecast/Pods-WeatherForecast.release.xcconfig"; sourceTree = "<group>"; };
 		CC3456CD949DA57FFCF8984C /* Pods_WeatherForecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherForecast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,7 +153,7 @@
 		1D71268C2948A071007E37A4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1D7126902949A616007E37A4 /* HeaderView.swift */,
+				1D8C6988294AFA3D00E9FD91 /* WeatherCardCell.swift */,
 				1D71268E2949A5CD007E37A4 /* DetailCell.swift */,
 				1D71268329489C2D007E37A4 /* HeaderCollectionViewCell.swift */,
 				1D71268529489C42007E37A4 /* MiniWeatherCollectionViewCell.swift */,
@@ -161,14 +165,24 @@
 		1D71268D2948A084007E37A4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1D7126922949ECD0007E37A4 /* ExplanationForDayView.swift */,
 				1D71266729489AC9007E37A4 /* Constants.swift */,
 				1D71266929489AEA007E37A4 /* HelperForModel.swift */,
 				1D71266B29489B04007E37A4 /* TextPicker.swift */,
 				1D71265029489A67007E37A4 /* AppDelegate.swift */,
 				1D71265229489A67007E37A4 /* SceneDelegate.swift */,
+				1D8C698A294B37F400E9FD91 /* View */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1D8C698A294B37F400E9FD91 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D7126902949A616007E37A4 /* HeaderView.swift */,
+				1D8C6986294AF83200E9FD91 /* HeaderDate.swift */,
+				1D7126922949ECD0007E37A4 /* ExplanationForDayView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9D6EC1315E42918277679DD9 /* Pods */ = {
@@ -312,6 +326,7 @@
 				1D7126912949A616007E37A4 /* HeaderView.swift in Sources */,
 				1D71266E29489B63007E37A4 /* WeatherModel.swift in Sources */,
 				1D71267229489B8B007E37A4 /* UIPageViewController.swift in Sources */,
+				1D8C6987294AF83200E9FD91 /* HeaderDate.swift in Sources */,
 				1D71265329489A67007E37A4 /* SceneDelegate.swift in Sources */,
 				1D71265B29489A67007E37A4 /* WeatherForecast.xcdatamodeld in Sources */,
 				1D71268429489C2D007E37A4 /* HeaderCollectionViewCell.swift in Sources */,
@@ -321,6 +336,7 @@
 				1D7126932949ECD0007E37A4 /* ExplanationForDayView.swift in Sources */,
 				1D71267C29489BE6007E37A4 /* SettingsController.swift in Sources */,
 				1D71267029489B70007E37A4 /* InitViewController.swift in Sources */,
+				1D8C6989294AFA3D00E9FD91 /* WeatherCardCell.swift in Sources */,
 				1D71267A29489BD5007E37A4 /* WeatherDataController.swift in Sources */,
 				1D71268029489C07007E37A4 /* CoreDataManager.swift in Sources */,
 				1D71268629489C42007E37A4 /* MiniWeatherCollectionViewCell.swift in Sources */,

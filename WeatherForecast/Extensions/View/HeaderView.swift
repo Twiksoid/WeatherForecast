@@ -10,33 +10,26 @@ import Charts
 
 class HeaderView: UITableViewHeaderFooterView {
     
-  private lazy var lineChart: LineChartView = {
+    private lazy var lineChart: LineChartView = {
         let chart = LineChartView()
         chart.translatesAutoresizingMaskIntoConstraints = false
         chart.rightAxis.enabled = false
         chart.leftAxis.enabled = false
-      
+        
         chart.xAxis.labelPosition = .bottom
-        chart.xAxis.labelFont = .boldSystemFont(ofSize: 12)
+        chart.xAxis.labelWidth = CGFloat(11)
+        chart.xAxis.labelHeight = CGFloat(11)
+        chart.xAxis.labelFont = .boldSystemFont(ofSize: 14)
         
         chart.xAxis.labelTextColor = .black
         chart.xAxis.axisLineColor = .white
         chart.animate(xAxisDuration: 1.0)
         chart.legend.enabled = false
+        chart.sizeToFit()
         chart.backgroundColor = .specialLightBlue
         return chart
     }()
 
-    private lazy var titleTextField: UITextField = {
-        let titleField = UITextField()
-        titleField.textColor = .black
-        titleField.font = .boldSystemFont(ofSize: 18)
-        titleField.text = "Text"
-        titleField.isUserInteractionEnabled = false
-        titleField.translatesAutoresizingMaskIntoConstraints = false
-        return titleField
-    }()
-    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
@@ -59,7 +52,7 @@ class HeaderView: UITableViewHeaderFooterView {
     }
     
     func setupHeader(for dataForCity: [DataForDay]){
-
+        
         var arrayOfSetData = [ChartDataEntry]()
         lineChart.xAxis.setLabelCount(dataForCity.count, force: false)
         
@@ -68,18 +61,24 @@ class HeaderView: UITableViewHeaderFooterView {
             let stringTime = i.textTimeWeather
             let numberTime = Double(stringTime.dropLast(3))
             
+            let stringTemp = i.currentWeatherValue
+            let numberTemp = Double(stringTemp)
+            
             arrayOfSetData.append(ChartDataEntry(
                 x: numberTime ?? 0.0,
-                y: Double(i.currentWeatherValue) ?? 0.0))
+                y: numberTemp ?? 0.0,
+                icon: i.imageGeneral))
         }
         
         let setOfValues = LineChartDataSet(entries: arrayOfSetData)
         setOfValues.drawCirclesEnabled = false
         // плавная линия
         setOfValues.mode = .horizontalBezier
-        setOfValues.setColor(.black)
+        setOfValues.setColor(.white)
+        setOfValues.formSize = CGFloat(11)
         setOfValues.drawHorizontalHighlightIndicatorEnabled = false
         setOfValues.highlightColor = .black
+        setOfValues.drawIconsEnabled = true
         
         let date = LineChartData(dataSet: setOfValues)
         // покахать значения º

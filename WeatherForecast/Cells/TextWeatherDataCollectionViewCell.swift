@@ -33,6 +33,7 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
     
     private lazy var descriptionWeather: UILabel = {
         let text = UILabel()
+        text.numberOfLines = 0
         text.textAlignment = .left
         text.isUserInteractionEnabled = false
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -85,12 +86,12 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
             descriptionWeather.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             descriptionWeather.leadingAnchor.constraint(equalTo: vetPercent.trailingAnchor, constant: 5),
             descriptionWeather.bottomAnchor.constraint(equalTo: bottomAnchor),
-            descriptionWeather.widthAnchor.constraint(equalToConstant: CGFloat(frame.width / 2)),
+            descriptionWeather.widthAnchor.constraint(equalToConstant: CGFloat(frame.width / 2) - 10),
             descriptionWeather.heightAnchor.constraint(equalToConstant: 20),
             
             degreesseData.centerYAnchor.constraint(equalTo: descriptionWeather.centerYAnchor),
             degreesseData.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            degreesseData.widthAnchor.constraint(equalToConstant: 80),
+            degreesseData.widthAnchor.constraint(equalToConstant: 100),
             degreesseData.heightAnchor.constraint(equalToConstant: 20)
         ])
         

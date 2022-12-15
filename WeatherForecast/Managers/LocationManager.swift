@@ -28,7 +28,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             manager.stopUpdatingLocation()
         }
     }
-
+    
     func forwardGeocoding(address: String, completion: @escaping ((CLLocationCoordinate2D) -> Void)) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) in

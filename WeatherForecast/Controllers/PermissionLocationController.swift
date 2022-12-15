@@ -10,8 +10,6 @@ import CoreLocation
 
 class PermissionLocationController: UIViewController {
     
-    //  var locationManager: CLLocationManager?
-    
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
     
@@ -98,7 +96,7 @@ class PermissionLocationController: UIViewController {
     
     private func firstLoginWas(){
         UserDefaults.standard.set("firstLogin", forKey: "onboarding")
-
+        
         // тут вызываем экран создания записи
         let viewNameToGo = PageViewController()
         let goTo = UINavigationController(rootViewController: viewNameToGo)

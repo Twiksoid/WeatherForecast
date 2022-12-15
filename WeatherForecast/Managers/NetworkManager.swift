@@ -62,7 +62,7 @@ struct Clouds: Decodable {
 // данные по ветренности
 struct Wind: Decodable {
     var speed: Double
-    var deg: Int // direction
+    var deg: Int // wind direction
 }
 
 struct NetworkManager {
