@@ -142,6 +142,60 @@ class WeatherCardCell: UITableViewCell {
         return text
     }()
     
+    private lazy var riseImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "sunrise")
+        image.tintColor = .specialBlue
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var riseDescription: UILabel = {
+        let text = UILabel()
+        text.textColor = .black
+        text.text = "Восход"
+        text.numberOfLines = 0
+        text.textAlignment = .left
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    
+    private lazy var riseDayValue: UILabel = {
+        let text = UILabel()
+        text.textColor = .black
+        text.numberOfLines = 0
+        text.textAlignment = .right
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    
+    private lazy var setImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "sunset")
+        image.tintColor = .specialBlue
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var setDescription: UILabel = {
+        let text = UILabel()
+        text.textColor = .black
+        text.text = "Закат"
+        text.numberOfLines = 0
+        text.textAlignment = .left
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    
+    private lazy var setDayValue: UILabel = {
+        let text = UILabel()
+        text.textColor = .black
+        text.numberOfLines = 0
+        text.textAlignment = .right
+        text.translatesAutoresizingMaskIntoConstraints = false
+        return text
+    }()
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -156,7 +210,7 @@ class WeatherCardCell: UITableViewCell {
         var size: CGFloat = 0
         var plus: CGFloat = 0
         
-        // backgroundColor = .specialLightBlue
+        backgroundColor = .specialLightBlue
         addSubview(currentImage)
         addSubview(tempValue)
         addSubview(tempText)
@@ -172,6 +226,12 @@ class WeatherCardCell: UITableViewCell {
         addSubview(cloudsImage)
         addSubview(cloudsDescription)
         addSubview(cloudsDayValue)
+        addSubview(riseImage)
+        addSubview(riseDescription)
+        addSubview(riseDayValue)
+        addSubview(setImage)
+        addSubview(setDescription)
+        addSubview(setDayValue)
         
         if UIDevice.current.model == "iPad" {
             size = 2
@@ -252,7 +312,7 @@ class WeatherCardCell: UITableViewCell {
             cloudsImage.topAnchor.constraint(equalTo: rainImage.bottomAnchor, constant: 15),
             cloudsImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             cloudsImage.trailingAnchor.constraint(equalTo: cloudsDescription.leadingAnchor, constant: -10),
-            cloudsImage.heightAnchor.constraint(equalToConstant: 22),
+            cloudsImage.heightAnchor.constraint(equalToConstant: 21),
             cloudsImage.widthAnchor.constraint(equalToConstant: 22),
             
             cloudsDescription.topAnchor.constraint(equalTo: rainDescription.bottomAnchor, constant: 15),
@@ -265,11 +325,49 @@ class WeatherCardCell: UITableViewCell {
             cloudsDayValue.centerXAnchor.constraint(equalTo: cloudsDescription.centerXAnchor),
             cloudsDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             cloudsDayValue.widthAnchor.constraint(equalToConstant: 40),
-            cloudsDayValue.heightAnchor.constraint(equalToConstant: 21)
+            cloudsDayValue.heightAnchor.constraint(equalToConstant: 23),
+            
+            riseImage.topAnchor.constraint(equalTo: cloudsImage.bottomAnchor, constant: 10),
+            riseImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            riseImage.trailingAnchor.constraint(equalTo: riseDescription.leadingAnchor, constant: -10),
+            riseImage.heightAnchor.constraint(equalToConstant: 22),
+            riseImage.widthAnchor.constraint(equalToConstant: 22),
+            
+            riseDescription.topAnchor.constraint(equalTo: cloudsDescription.bottomAnchor, constant: 15),
+            riseDescription.leadingAnchor.constraint(equalTo: riseImage.trailingAnchor, constant: 10),
+            riseDescription.centerXAnchor.constraint(equalTo: riseImage.centerXAnchor),
+            riseDescription.widthAnchor.constraint(equalToConstant: 160),
+            riseDescription.heightAnchor.constraint(equalToConstant: 21),
+            
+            riseDayValue.topAnchor.constraint(equalTo: cloudsDayValue.bottomAnchor, constant: 10),
+            riseDayValue.centerXAnchor.constraint(equalTo: riseDescription.centerXAnchor),
+            riseDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            riseDayValue.widthAnchor.constraint(equalToConstant: 50),
+            riseDayValue.heightAnchor.constraint(equalToConstant: 21),
+            
+            setImage.topAnchor.constraint(equalTo: riseImage.bottomAnchor, constant: 10),
+            setImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            setImage.trailingAnchor.constraint(equalTo: setDescription.leadingAnchor, constant: -10),
+            setImage.heightAnchor.constraint(equalToConstant: 22),
+            setImage.widthAnchor.constraint(equalToConstant: 22),
+            
+            setDescription.topAnchor.constraint(equalTo: riseDescription.bottomAnchor, constant: 10),
+            setDescription.leadingAnchor.constraint(equalTo: setImage.trailingAnchor, constant: 10),
+            setDescription.centerXAnchor.constraint(equalTo: setImage.centerXAnchor),
+            setDescription.widthAnchor.constraint(equalToConstant: 160),
+            setDescription.heightAnchor.constraint(equalToConstant: 21),
+            
+            setDayValue.topAnchor.constraint(equalTo: riseDayValue.bottomAnchor, constant: 15),
+            setDayValue.centerXAnchor.constraint(equalTo: setDescription.centerXAnchor),
+            setDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            setDayValue.widthAnchor.constraint(equalToConstant: 50),
+            setDayValue.heightAnchor.constraint(equalToConstant: 21)
+            
         ])
     }
     
     func setupCell(for data: AllWeatherData){
+        
         currentImage.image = data.imageCollectionView
         tempValue.text = data.currentWeatherValue
         tempText.text = data.descriptionWeather
@@ -277,6 +375,8 @@ class WeatherCardCell: UITableViewCell {
         windDayValue.text = data.valueWind
         rainDayValue.text = data.valueRain
         cloudsDayValue.text = data.valueVisible
+        riseDayValue.text = data.timeRise
+        setDayValue.text = data.timeSunset
     }
     
 }

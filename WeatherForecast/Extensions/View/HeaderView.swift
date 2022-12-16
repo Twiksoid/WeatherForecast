@@ -29,7 +29,7 @@ class HeaderView: UITableViewHeaderFooterView {
         chart.backgroundColor = .specialLightBlue
         return chart
     }()
-
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
@@ -74,7 +74,7 @@ class HeaderView: UITableViewHeaderFooterView {
         setOfValues.drawCirclesEnabled = false
         // плавная линия
         setOfValues.mode = .horizontalBezier
-        setOfValues.setColor(.white)
+        setOfValues.setColor(.specialLightBlue)
         setOfValues.formSize = CGFloat(11)
         setOfValues.drawHorizontalHighlightIndicatorEnabled = false
         setOfValues.highlightColor = .black

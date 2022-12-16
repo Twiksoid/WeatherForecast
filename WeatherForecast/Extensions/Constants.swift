@@ -42,6 +42,21 @@ enum Constants {
     static let alarmAddTownText = "Для добавления города, нажмите в правом верхнем углу"
     static let alarmAddTownOk = "Понятно"
     static let textWhileLoadingInit = "Загрузка данных, подождите ..."
+    static let defaultTitleNameInNavigationController = "Погода для города"
+    static let textFor24Hours = "Подробнее на 24 часа"
+    static let textForEveryDay = "Ежедневный прогноз на ближайшие дни"
+    static let nilField = ""
+    static let townWithoutName = "Город без имени"
+}
+
+enum NamesOfCells {
+    static let headerCell = "HeaderCell"
+    static let miniWeather = "MiniWeather"
+    static let textCell = "TextCell"
+    static let headerView = "HeaderView"
+    static let headerDate = "HeaderDate"
+    static let weatherCardCell = "WeatherCardCell"
+    static let explForDayView = "ExplanationForDayView"
 }
 
 let headerDataExample: HeaderData = .init(minMaxWeather: "7º/13º",
@@ -83,7 +98,7 @@ let allWeatherData1: AllWeatherData = .init(cityID: 35334,
                                             valueRain: "75%",
                                             imageWind: UIImage(named: "01d")!,
                                             valueWind: "3 m/c",
-                                            textTimeWeather: "12:00",
+                                            country: "ru", textTimeWeather: "12:00",
                                             imageCollectionView: UIImage(named: "13d")!,
                                             textWeather: "13º",
                                             dataWeather: "17/04",
@@ -107,7 +122,7 @@ let allWeatherData2: AllWeatherData = .init(cityID: 354354,
                                             valueRain: "85%",
                                             imageWind: UIImage(named: "01d")!,
                                             valueWind: "1 m/c",
-                                            textTimeWeather: "12:00",
+                                            country: "ru", textTimeWeather: "12:00",
                                             imageCollectionView: UIImage(named: "13d")!,
                                             textWeather: "3º",
                                             dataWeather: "17/04",
@@ -124,7 +139,7 @@ extension UIColor {
     static let specialBlue = UIColor(red: 31 / 255, green: 77 / 255, blue: 191 / 255, alpha: 1)
     static let specialGrey = UIColor(red: 254 / 255, green: 237 / 255, blue: 233 / 255, alpha: 1)
     static let specialGold = UIColor(red: 246 / 255, green: 221 / 255, blue: 1 / 255, alpha: 1)
-    static let specialLightBlue = UIColor(red: 233 / 1, green: 238 / 1, blue: 250 / 1, alpha: 1)
+    static let specialLightBlue = UIColor(red: 233 / 255, green: 238 / 255, blue: 250 / 255, alpha: 1)
 }
 
 extension Double {

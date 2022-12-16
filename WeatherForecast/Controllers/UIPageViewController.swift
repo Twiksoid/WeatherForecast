@@ -135,7 +135,7 @@ class PageViewController: UIPageViewController {
     private func setupNavigationBar(){
         if arrayOfWeatherData.count == 0 {
             navigationItem.title = Constants.defaultTownName
-        } else { navigationItem.title = arrayOfWeatherData[0].cityName}
+        } else { navigationItem.title = Constants.defaultTitleNameInNavigationController }
         navigationController?.navigationBar.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = false
         

@@ -3,11 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Для определения местоположения необходимо предоставить доступ</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Для определения местоположения необходимо предоставить доступ</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Для определения местоположения необходимо предоставить доступ</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ru</string>
+		<string>en</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

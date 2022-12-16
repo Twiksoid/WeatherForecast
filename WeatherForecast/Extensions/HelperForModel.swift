@@ -69,6 +69,7 @@ struct AllWeatherData {
     var valueRain: String
     var imageWind: UIImage
     var valueWind: String
+    var country: String
     
     var textTimeWeather: String
     var imageCollectionView: UIImage

@@ -17,9 +17,11 @@ class CertainDayWeatherDataController: UIViewController {
         let table = UITableView(frame: .zero, style: .plain)
         table.dataSource = self
         table.delegate = self
+        table.layer.cornerRadius = 10
+        table.clipsToBounds = true
         table.rowHeight = UITableView.automaticDimension
         table.register(DetailCell.self, forCellReuseIdentifier: "DetailCell")
-        table.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
+        table.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: NamesOfCells.headerView)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -65,7 +67,8 @@ extension CertainDayWeatherDataController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0 {
-            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? HeaderView {
+            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NamesOfCells.headerView) as? HeaderView {
+                headerView.backgroundColor = .specialLightBlue
                 headerView.setupHeader(for: dataForCity)
                 return headerView
             } else {
@@ -77,6 +80,9 @@ extension CertainDayWeatherDataController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as? DetailCell {
+            cell.layer.cornerRadius = 10
+            cell.clipsToBounds = true
+            cell.backgroundColor = .specialLightBlue
             cell.setupCell(for: dataForCity[indexPath.row])
             return cell
         } else {

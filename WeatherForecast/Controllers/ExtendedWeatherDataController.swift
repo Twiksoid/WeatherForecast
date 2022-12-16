@@ -11,13 +11,14 @@ class ExtendedWeatherDataController: UIViewController {
     
     var delegateWeatherDataController: WeatherDataController?
     var cityID: Int32?
+    var country: String?
     var dayForCity: String?
     var allWeatherData = [AllWeatherData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        allWeatherData = CoreDataManager.shared.catchData(for: cityID ?? 0)
+        allWeatherData = CoreDataManager.shared.catchData(for: cityID ?? 0, and: country ?? "ru")
         setupView()
     }
     
@@ -26,8 +27,8 @@ class ExtendedWeatherDataController: UIViewController {
         table.rowHeight = UITableView.automaticDimension
         table.dataSource = self
         table.delegate = self
-        table.register(HeaderDate.self, forHeaderFooterViewReuseIdentifier: "HeaderDate")
-        table.register(WeatherCardCell.self, forCellReuseIdentifier: "WeatherCardCell")
+        table.register(HeaderDate.self, forHeaderFooterViewReuseIdentifier: NamesOfCells.headerDate)
+        table.register(WeatherCardCell.self, forCellReuseIdentifier: NamesOfCells.weatherCardCell)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -59,7 +60,7 @@ extension ExtendedWeatherDataController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0 {
-            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderDate") as? HeaderDate {
+            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NamesOfCells.headerDate) as? HeaderDate {
                 let index = allWeatherData.firstIndex(where: { $0.dataWeather == dayForCity })
                 // найдем первую запись для выбранного дня
                 headerView.setupHeaderData(for: allWeatherData[index ?? 0].dataWeather)
@@ -72,7 +73,7 @@ extension ExtendedWeatherDataController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 270
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -84,7 +85,7 @@ extension ExtendedWeatherDataController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCardCell", for: indexPath) as? WeatherCardCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: NamesOfCells.weatherCardCell, for: indexPath) as? WeatherCardCell {
             // найдем первую запись для выбранного дня
             let index = allWeatherData.firstIndex(where: { $0.dataWeather == dayForCity })
             cell.setupCell(for: allWeatherData[index ?? 0])

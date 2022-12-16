@@ -37,16 +37,24 @@ class CoreDataManager {
         self.city = cities ?? []
     }
     
-    func catchData(for cityID: Int32) -> [AllWeatherData] {
-        
-        var dataForCityInDay = [AllWeatherData]()
-        
+    private func getCurrentData(for identificator: String) -> String {
         let currentDay = Date()
         let fortatter = DateFormatter()
         fortatter.timeStyle = .short
         fortatter.dateStyle = .full
-        
+        fortatter.timeZone = .current
+        fortatter.locale = .autoupdatingCurrent
+        // симулятор не цеплял, если принудительно не прописать
+        // на реальном устройстве лучше отключить, наверное
+        fortatter.locale = Locale(identifier: identificator)
         let currentDateTime = fortatter.string(from: currentDay)
+        return currentDateTime
+    }
+    
+    func catchData(for cityID: Int32, and country: String) -> [AllWeatherData] {
+        
+        var dataForCityInDay = [AllWeatherData]()
+        let currentDateTime = getCurrentData(for: country)
         
         let requstGeneralTable = GeneralTable.fetchRequest()
         let predicateCityID = NSPredicate(format: "cityID = %@", String(cityID))
@@ -83,6 +91,7 @@ class CoreDataManager {
                 valueRain: "0%",
                 imageWind: UIImage(systemName: "wind")!,
                 valueWind: String(Int(i.speed)) + "м/с",
+                country: cityData[0].country ?? "ru",
                 textTimeWeather: timeForPrediction,
                 imageCollectionView: UIImage(named: String(i.icon!))!,
                 textWeather: String(Int(i.temp)) + "º",
@@ -152,14 +161,7 @@ class CoreDataManager {
         getFavoriteCities()
         
         var arrayOfWeatherData = [AllWeatherData]()
-        
-        let currentDay = Date()
-        let fortatter = DateFormatter()
-        fortatter.timeStyle = .short
-        fortatter.dateStyle = .full
-        
-        let currentDateTime = fortatter.string(from: currentDay)
-        
+
         if city.count > 0 {
             
             for i in 0...city.count-1 {
@@ -178,7 +180,7 @@ class CoreDataManager {
                 generalWeatherData.sort { $0.dt < $1.dt }
                 
                 for i in generalWeatherData {
-                    
+                    let currentDateTime = getCurrentData(for: cityObject.country ?? "ru")
                     let timeForPrediction = getTime(forValue: i.dt)
                     let DateForPrediction = getData(forValue: i.dt)
                     
@@ -198,6 +200,7 @@ class CoreDataManager {
                         valueRain: "0%",
                         imageWind: UIImage(systemName: "wind")!,
                         valueWind: String(Int(i.speed)) + "м/с",
+                        country: cityObject.country ?? "ru",
                         textTimeWeather: timeForPrediction,
                         imageCollectionView: UIImage(named: String(i.icon!))!,
                         textWeather: String(Int(i.temp)) + "º",

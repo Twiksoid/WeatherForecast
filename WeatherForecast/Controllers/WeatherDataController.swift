@@ -58,13 +58,13 @@ class WeatherDataController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout )
         collection.dataSource = self
         collection.delegate = self
-        collection.layer.cornerRadius = 10
+        collection.layer.cornerRadius = 20
         collection.clipsToBounds = true
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Default")
-        collection.register(HeaderCollectionViewCell.self, forCellWithReuseIdentifier: "HeaderCell")
-        collection.register(MiniWeatherCollectionViewCell.self, forCellWithReuseIdentifier: "MiniWeather")
-        collection.register(TextWeatherDataCollectionViewCell.self, forCellWithReuseIdentifier: "TextCell")
-        collection.register(ExplanationForDayView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ExplanationForDayView")
+        collection.register(HeaderCollectionViewCell.self, forCellWithReuseIdentifier: NamesOfCells.headerCell)
+        collection.register(MiniWeatherCollectionViewCell.self, forCellWithReuseIdentifier: NamesOfCells.miniWeather)
+        collection.register(TextWeatherDataCollectionViewCell.self, forCellWithReuseIdentifier: NamesOfCells.textCell)
+        collection.register(ExplanationForDayView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NamesOfCells.explForDayView)
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
@@ -165,10 +165,10 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionView.elementKindSectionHeader {
-            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ExplanationForDayView", for: indexPath) as! ExplanationForDayView
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NamesOfCells.explForDayView, for: indexPath) as! ExplanationForDayView
             sectionHeader.delegate = self
             sectionHeader.dataForExtension = text
-            sectionHeader.setupCollectionHeader(forIndex: indexPath.section)
+            sectionHeader.setupCollectionHeader(forIndex: indexPath.section, and: allWeatherData?.cityName ?? Constants.townWithoutName)
             return sectionHeader
         } else { // без футера
             return UICollectionReusableView()
@@ -198,18 +198,20 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as? HeaderCollectionViewCell {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NamesOfCells.headerCell, for: indexPath) as? HeaderCollectionViewCell {
                 cell.setupCell(for: allWeatherData ?? allWeatherData1)
                 return cell
             } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
                 return cell}
         } else if indexPath.section == 1 {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MiniWeather", for: indexPath) as? MiniWeatherCollectionViewCell {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NamesOfCells.miniWeather, for: indexPath) as? MiniWeatherCollectionViewCell {
                 cell.setupCell(for: mini?[indexPath.row] ?? miniDataExample)
                 return cell
             } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
                 return cell }} else {
-                    if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as? TextWeatherDataCollectionViewCell {
+                    if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NamesOfCells.textCell, for: indexPath) as? TextWeatherDataCollectionViewCell {
+                        cell.backgroundColor = .specialLightBlue
+                        cell.layer.cornerRadius = 10
                         cell.setupCell(for: text?[indexPath.row] ?? textDataExample)
                         return cell
                     } else { let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -242,6 +244,7 @@ extension WeatherDataController:  UICollectionViewDataSource, UICollectionViewDe
             
             let viewNameToGo = ExtendedWeatherDataController()
             viewNameToGo.delegateWeatherDataController = self
+            viewNameToGo.country = allWeatherData?.country
             viewNameToGo.cityID = text?[indexPath.row].cityID
             viewNameToGo.dayForCity = text?[indexPath.row].dataWeather
             

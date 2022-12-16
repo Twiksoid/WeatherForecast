@@ -138,7 +138,6 @@ class DetailCell: UITableViewCell {
     }
     
     private func setupView(){
-        contentView.backgroundColor = .specialLightBlue
         contentView.addSubview(dataText)
         contentView.addSubview(timeText)
         contentView.addSubview(tempText)

@@ -55,18 +55,19 @@ class ExplanationForDayView: UICollectionReusableView, UIGestureRecognizerDelega
         ])
     }
     
-    func setupCollectionHeader(forIndex index: Int) {
+    func setupCollectionHeader(forIndex index: Int, and name: String) {
         switch index {
         case 0:
-            label.text = ""
+            label.text = name
+            label.textAlignment = .center
         case 1:
-            label.text = "Подробнее на 24 часа"
+            label.text = Constants.textFor24Hours
         case 2:
-            label.text = "Ежедневный прогноз на ближайшие дни"
+            label.text = Constants.textForEveryDay
             label.textAlignment = .left
             label.isUserInteractionEnabled = false
         default:
-            label.text = ""
+            label.text = Constants.nilField
         }
     }
 }
