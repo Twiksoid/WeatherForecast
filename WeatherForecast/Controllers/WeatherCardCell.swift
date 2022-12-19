@@ -29,7 +29,7 @@ class WeatherCardCell: UITableViewCell {
         let text = UILabel()
         text.textColor = .black
         text.numberOfLines = 0
-        text.textAlignment = .center
+        text.textAlignment = .left
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
@@ -207,9 +207,6 @@ class WeatherCardCell: UITableViewCell {
     
     private func setupView(){
         
-        var size: CGFloat = 0
-        var plus: CGFloat = 0
-        
         backgroundColor = .specialLightBlue
         addSubview(currentImage)
         addSubview(tempValue)
@@ -233,132 +230,106 @@ class WeatherCardCell: UITableViewCell {
         addSubview(setDescription)
         addSubview(setDayValue)
         
-        if UIDevice.current.model == "iPad" {
-            size = 2
-            plus = 170
-        } else {
-            size = 6
-            plus = 100
-        }
-        
         NSLayoutConstraint.activate([
             
             currentImage.topAnchor.constraint(equalTo: topAnchor),
-            currentImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: (frame.width/size) + plus),
-            currentImage.heightAnchor.constraint(equalToConstant: 22),
-            currentImage.widthAnchor.constraint(equalToConstant: 22),
+            currentImage.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -50),
+            currentImage.heightAnchor.constraint(equalToConstant: 50),
+            currentImage.widthAnchor.constraint(equalToConstant: 50),
             
             tempValue.topAnchor.constraint(equalTo: topAnchor),
             tempValue.leadingAnchor.constraint(equalTo: currentImage.trailingAnchor, constant: 10),
             
             tempText.topAnchor.constraint(equalTo: tempValue.bottomAnchor, constant: 10),
-            tempText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width/size),
-            tempText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width/size),
+            tempText.leadingAnchor.constraint(equalTo: tempValue.leadingAnchor),
+            tempText.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             tempImage.topAnchor.constraint(equalTo: tempText.bottomAnchor, constant: 15),
             tempImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            tempImage.trailingAnchor.constraint(equalTo: tempDescription.leadingAnchor, constant: -10),
             tempImage.heightAnchor.constraint(equalToConstant: 22),
             tempImage.widthAnchor.constraint(equalToConstant: 22),
             
             tempDescription.topAnchor.constraint(equalTo: tempText.bottomAnchor, constant: 15),
             tempDescription.leadingAnchor.constraint(equalTo: tempImage.trailingAnchor, constant: 10),
-            tempDescription.centerXAnchor.constraint(equalTo: tempImage.centerXAnchor),
-            tempDescription.widthAnchor.constraint(equalToConstant: 160),
+            tempDescription.widthAnchor.constraint(equalToConstant: 125),
             tempDescription.heightAnchor.constraint(equalToConstant: 21),
             
             tempDayValue.topAnchor.constraint(equalTo: tempText.bottomAnchor, constant: 15),
-            tempDayValue.centerXAnchor.constraint(equalTo: tempDescription.centerXAnchor),
             tempDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            tempDayValue.widthAnchor.constraint(equalToConstant: 40),
+            tempDayValue.widthAnchor.constraint(equalToConstant: 50),
             tempDayValue.heightAnchor.constraint(equalToConstant: 21),
             
             windImage.topAnchor.constraint(equalTo: tempImage.bottomAnchor, constant: 15),
             windImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            windImage.trailingAnchor.constraint(equalTo: windDescription.leadingAnchor, constant: -10),
             windImage.heightAnchor.constraint(equalToConstant: 22),
             windImage.widthAnchor.constraint(equalToConstant: 22),
             
             windDescription.topAnchor.constraint(equalTo: tempDescription.bottomAnchor, constant: 15),
             windDescription.leadingAnchor.constraint(equalTo: windImage.trailingAnchor, constant: 10),
-            windDescription.centerXAnchor.constraint(equalTo: windImage.centerXAnchor),
-            windDescription.widthAnchor.constraint(equalToConstant: 160),
+            windDescription.widthAnchor.constraint(equalToConstant: 50),
             windDescription.heightAnchor.constraint(equalToConstant: 21),
             
             windDayValue.topAnchor.constraint(equalTo: tempDayValue.bottomAnchor, constant: 15),
-            windDayValue.centerXAnchor.constraint(equalTo: windDescription.centerXAnchor),
             windDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            windDayValue.widthAnchor.constraint(equalToConstant: 40),
+            windDayValue.widthAnchor.constraint(equalToConstant: 50),
             windDayValue.heightAnchor.constraint(equalToConstant: 21),
             
             rainImage.topAnchor.constraint(equalTo: windImage.bottomAnchor, constant: 15),
             rainImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            rainImage.trailingAnchor.constraint(equalTo: rainDescription.leadingAnchor, constant: -10),
             rainImage.heightAnchor.constraint(equalToConstant: 22),
             rainImage.widthAnchor.constraint(equalToConstant: 22),
             
             rainDescription.topAnchor.constraint(equalTo: windDescription.bottomAnchor, constant: 15),
             rainDescription.leadingAnchor.constraint(equalTo: rainImage.trailingAnchor, constant: 10),
-            rainDescription.centerXAnchor.constraint(equalTo: rainImage.centerXAnchor),
-            rainDescription.widthAnchor.constraint(equalToConstant: 160),
+            rainDescription.widthAnchor.constraint(equalToConstant: 60),
             rainDescription.heightAnchor.constraint(equalToConstant: 21),
             
             rainDayValue.topAnchor.constraint(equalTo: windDayValue.bottomAnchor, constant: 15),
-            rainDayValue.centerXAnchor.constraint(equalTo: rainDescription.centerXAnchor),
             rainDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            rainDayValue.widthAnchor.constraint(equalToConstant: 40),
+            rainDayValue.widthAnchor.constraint(equalToConstant: 50),
             rainDayValue.heightAnchor.constraint(equalToConstant: 21),
             
             cloudsImage.topAnchor.constraint(equalTo: rainImage.bottomAnchor, constant: 15),
             cloudsImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            cloudsImage.trailingAnchor.constraint(equalTo: cloudsDescription.leadingAnchor, constant: -10),
             cloudsImage.heightAnchor.constraint(equalToConstant: 21),
             cloudsImage.widthAnchor.constraint(equalToConstant: 22),
             
             cloudsDescription.topAnchor.constraint(equalTo: rainDescription.bottomAnchor, constant: 15),
             cloudsDescription.leadingAnchor.constraint(equalTo: cloudsImage.trailingAnchor, constant: 10),
-            cloudsDescription.centerXAnchor.constraint(equalTo: cloudsImage.centerXAnchor),
-            cloudsDescription.widthAnchor.constraint(equalToConstant: 160),
+            cloudsDescription.widthAnchor.constraint(equalToConstant: 100),
             cloudsDescription.heightAnchor.constraint(equalToConstant: 21),
             
             cloudsDayValue.topAnchor.constraint(equalTo: rainDayValue.bottomAnchor, constant: 15),
-            cloudsDayValue.centerXAnchor.constraint(equalTo: cloudsDescription.centerXAnchor),
             cloudsDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            cloudsDayValue.widthAnchor.constraint(equalToConstant: 40),
-            cloudsDayValue.heightAnchor.constraint(equalToConstant: 23),
+            cloudsDayValue.widthAnchor.constraint(equalToConstant: 50),
+            cloudsDayValue.heightAnchor.constraint(equalToConstant: 21),
             
             riseImage.topAnchor.constraint(equalTo: cloudsImage.bottomAnchor, constant: 10),
             riseImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            riseImage.trailingAnchor.constraint(equalTo: riseDescription.leadingAnchor, constant: -10),
             riseImage.heightAnchor.constraint(equalToConstant: 22),
             riseImage.widthAnchor.constraint(equalToConstant: 22),
             
             riseDescription.topAnchor.constraint(equalTo: cloudsDescription.bottomAnchor, constant: 15),
             riseDescription.leadingAnchor.constraint(equalTo: riseImage.trailingAnchor, constant: 10),
-            riseDescription.centerXAnchor.constraint(equalTo: riseImage.centerXAnchor),
-            riseDescription.widthAnchor.constraint(equalToConstant: 160),
+            riseDescription.widthAnchor.constraint(equalToConstant: 60),
             riseDescription.heightAnchor.constraint(equalToConstant: 21),
             
             riseDayValue.topAnchor.constraint(equalTo: cloudsDayValue.bottomAnchor, constant: 10),
-            riseDayValue.centerXAnchor.constraint(equalTo: riseDescription.centerXAnchor),
             riseDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             riseDayValue.widthAnchor.constraint(equalToConstant: 50),
             riseDayValue.heightAnchor.constraint(equalToConstant: 21),
             
             setImage.topAnchor.constraint(equalTo: riseImage.bottomAnchor, constant: 10),
             setImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            setImage.trailingAnchor.constraint(equalTo: setDescription.leadingAnchor, constant: -10),
             setImage.heightAnchor.constraint(equalToConstant: 22),
             setImage.widthAnchor.constraint(equalToConstant: 22),
             
             setDescription.topAnchor.constraint(equalTo: riseDescription.bottomAnchor, constant: 10),
             setDescription.leadingAnchor.constraint(equalTo: setImage.trailingAnchor, constant: 10),
-            setDescription.centerXAnchor.constraint(equalTo: setImage.centerXAnchor),
-            setDescription.widthAnchor.constraint(equalToConstant: 160),
+            setDescription.widthAnchor.constraint(equalToConstant: 60),
             setDescription.heightAnchor.constraint(equalToConstant: 21),
             
             setDayValue.topAnchor.constraint(equalTo: riseDayValue.bottomAnchor, constant: 15),
-            setDayValue.centerXAnchor.constraint(equalTo: setDescription.centerXAnchor),
             setDayValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             setDayValue.widthAnchor.constraint(equalToConstant: 50),
             setDayValue.heightAnchor.constraint(equalToConstant: 21)

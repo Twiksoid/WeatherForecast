@@ -157,12 +157,11 @@ class DetailCell: UITableViewCell {
             
             dataText.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             dataText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            dataText.bottomAnchor.constraint(equalTo: timeText.topAnchor),
             dataText.heightAnchor.constraint(equalToConstant: 22),
+            dataText.widthAnchor.constraint(equalToConstant: 100),
             
             timeText.topAnchor.constraint(equalTo: dataText.bottomAnchor),
             timeText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            timeText.bottomAnchor.constraint(equalTo: tempText.topAnchor),
             timeText.heightAnchor.constraint(equalToConstant: 22),
             timeText.widthAnchor.constraint(equalToConstant: 50),
             
@@ -170,64 +169,56 @@ class DetailCell: UITableViewCell {
             tempText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             tempText.heightAnchor.constraint(equalToConstant: 22),
             
-            generalImage.heightAnchor.constraint(equalToConstant: 20),
-            generalImage.widthAnchor.constraint(equalToConstant: 20),
-            generalImage.leadingAnchor.constraint(equalTo: timeText.trailingAnchor, constant: 20),
-            generalImage.trailingAnchor.constraint(equalTo: generalText.leadingAnchor, constant: -10),
+            generalImage.topAnchor.constraint(equalTo: dataText.bottomAnchor),
+            generalImage.trailingAnchor.constraint(equalTo: dataText.trailingAnchor),
+            generalImage.heightAnchor.constraint(equalToConstant: 21),
+            generalImage.widthAnchor.constraint(equalToConstant: 21),
             
-            generalText.topAnchor.constraint(equalTo: generalImage.topAnchor, constant: -1),
             generalText.leadingAnchor.constraint(equalTo: generalImage.trailingAnchor, constant: 10),
-            generalText.centerXAnchor.constraint(equalTo: generalImage.centerXAnchor),
+            generalText.centerYAnchor.constraint(equalTo: generalImage.centerYAnchor),
             generalText.heightAnchor.constraint(equalToConstant: 22),
-            generalText.widthAnchor.constraint(equalToConstant: frame.width - 50),
+            generalText.widthAnchor.constraint(equalToConstant: frame.width - 70),
             
             windImage.topAnchor.constraint(equalTo: generalImage.bottomAnchor, constant: 5),
             windImage.leadingAnchor.constraint(equalTo: generalImage.leadingAnchor),
             windImage.trailingAnchor.constraint(equalTo: generalImage.trailingAnchor),
-            windImage.heightAnchor.constraint(equalToConstant: 20),
-            windImage.widthAnchor.constraint(equalToConstant: 20),
+            windImage.heightAnchor.constraint(equalToConstant: 21),
             
-            windText.topAnchor.constraint(equalTo: generalText.bottomAnchor, constant: 3),
             windText.leadingAnchor.constraint(equalTo: windImage.trailingAnchor, constant: 10),
-            windText.heightAnchor.constraint(equalToConstant: 20),
-            windText.widthAnchor.constraint(equalToConstant: frame.width - 50),
+            windText.centerYAnchor.constraint(equalTo: windImage.centerYAnchor),
+            windText.heightAnchor.constraint(equalToConstant: 22),
+            windText.widthAnchor.constraint(equalToConstant: frame.width - 70),
             
-            windValue.topAnchor.constraint(equalTo: windText.topAnchor),
             windValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            windValue.centerXAnchor.constraint(equalTo: windText.centerXAnchor),
+            windValue.centerYAnchor.constraint(equalTo: windText.centerYAnchor),
             windValue.heightAnchor.constraint(equalToConstant: 20),
             
             rainImage.topAnchor.constraint(equalTo: windImage.bottomAnchor, constant: 5),
             rainImage.leadingAnchor.constraint(equalTo: windImage.leadingAnchor),
             rainImage.trailingAnchor.constraint(equalTo: windImage.trailingAnchor),
-            rainImage.heightAnchor.constraint(equalToConstant: 20),
-            rainImage.widthAnchor.constraint(equalToConstant: 20),
+            rainImage.heightAnchor.constraint(equalToConstant: 21),
             
-            rainText.topAnchor.constraint(equalTo: windText.bottomAnchor, constant: 5),
             rainText.leadingAnchor.constraint(equalTo: rainImage.trailingAnchor, constant: 10),
-            rainText.heightAnchor.constraint(equalToConstant: 20),
-            rainText.widthAnchor.constraint(equalToConstant: frame.width - 50),
+            rainText.centerYAnchor.constraint(equalTo: rainImage.centerYAnchor),
+            rainText.heightAnchor.constraint(equalToConstant: 22),
+            rainText.widthAnchor.constraint(equalToConstant: frame.width - 70),
             
-            rainValue.topAnchor.constraint(equalTo: rainText.topAnchor),
             rainValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            rainValue.centerXAnchor.constraint(equalTo: rainText.centerXAnchor),
+            rainValue.centerYAnchor.constraint(equalTo: rainText.centerYAnchor),
             rainValue.heightAnchor.constraint(equalToConstant: 20),
             
             cloudImage.topAnchor.constraint(equalTo: rainImage.bottomAnchor, constant: 5),
             cloudImage.leadingAnchor.constraint(equalTo: rainImage.leadingAnchor),
             cloudImage.trailingAnchor.constraint(equalTo: rainImage.trailingAnchor),
-            cloudImage.heightAnchor.constraint(equalToConstant: 20),
-            cloudImage.widthAnchor.constraint(equalToConstant: 20),
-            cloudImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            cloudImage.heightAnchor.constraint(equalToConstant: 21),
             
-            cloudText.topAnchor.constraint(equalTo: rainText.bottomAnchor, constant: 5),
             cloudText.leadingAnchor.constraint(equalTo: cloudImage.trailingAnchor, constant: 10),
-            cloudText.heightAnchor.constraint(equalToConstant: 20),
-            cloudText.widthAnchor.constraint(equalToConstant: frame.width - 50),
+            cloudText.centerYAnchor.constraint(equalTo: cloudImage.centerYAnchor),
+            cloudText.heightAnchor.constraint(equalToConstant: 22),
+            cloudText.widthAnchor.constraint(equalToConstant: frame.width - 70),
             
-            cloudValue.topAnchor.constraint(equalTo: cloudText.topAnchor),
             cloudValue.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            cloudValue.centerXAnchor.constraint(equalTo: cloudText.centerXAnchor),
+            cloudValue.centerYAnchor.constraint(equalTo: cloudText.centerYAnchor),
             cloudValue.heightAnchor.constraint(equalToConstant: 20)
         ])
         
@@ -238,7 +229,7 @@ class DetailCell: UITableViewCell {
         timeText.text = dataForDay.textTimeWeather
         tempText.text = dataForDay.currentWeatherValue + "º"
         generalImage.image = dataForDay.imageGeneral
-        generalText.text = dataForDay.descriptionWeather + " " + dataForDay.currentWeatherValue
+        generalText.text = dataForDay.descriptionWeather + " и " + dataForDay.currentWeatherValue + "º"
         windImage.image = dataForDay.imageWind
         windValue.text = dataForDay.valueWind
         rainImage.image = dataForDay.imageRain

@@ -9,6 +9,9 @@ import UIKit
 import CoreData
 import CoreLocation
 
+// ключ для нотификатора
+let notificationKeyForCurrentTown = "getCurrentTownWeatherData"
+
 class PageViewController: UIPageViewController {
     
     var addressOfCity: String?
@@ -34,6 +37,16 @@ class PageViewController: UIPageViewController {
         // вызвать пейжвьюконтроллер
         setVCForPage()
         setupView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(notificatorForCurrentTown), name: Notification.Name(rawValue: notificationKeyForCurrentTown), object: nil)
+        
+    }
+    
+    @objc private func notificatorForCurrentTown(){
+        DispatchQueue.main.async { [self] in
+            setVCForPage()
+            setupView()
+        }
     }
     
     private func setVCForPage(){
@@ -50,11 +63,7 @@ class PageViewController: UIPageViewController {
         let pageControl = UIPageControl.appearance()
         pageControl.pageIndicatorTintColor = .gray
         pageControl.currentPageIndicatorTintColor = .black
-        if #available(iOS 16.0, *) {
-            pageControl.direction = .natural
-        } else {
-            
-        }
+        pageControl.direction = .natural
         pageControl.backgroundStyle = .prominent
     }
     

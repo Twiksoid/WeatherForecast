@@ -68,7 +68,6 @@ extension CertainDayWeatherDataController: UITableViewDataSource, UITableViewDel
         
         if section == 0 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NamesOfCells.headerView) as? HeaderView {
-                headerView.backgroundColor = .specialLightBlue
                 headerView.setupHeader(for: dataForCity)
                 return headerView
             } else {

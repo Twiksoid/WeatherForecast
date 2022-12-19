@@ -73,9 +73,8 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
             
             imageWeather.topAnchor.constraint(equalTo: dataWeather.bottomAnchor, constant: 5),
             imageWeather.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            imageWeather.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            imageWeather.heightAnchor.constraint(equalToConstant: 40),
-            imageWeather.widthAnchor.constraint(equalToConstant: 40),
+            imageWeather.heightAnchor.constraint(equalToConstant: 50),
+            imageWeather.widthAnchor.constraint(equalToConstant: 50),
             
             vetPercent.topAnchor.constraint(equalTo: dataWeather.bottomAnchor, constant: 10),
             vetPercent.leadingAnchor.constraint(equalTo: imageWeather.trailingAnchor, constant: 5),
@@ -83,16 +82,15 @@ class TextWeatherDataCollectionViewCell: UICollectionViewCell {
             vetPercent.widthAnchor.constraint(equalToConstant: 40),
             vetPercent.heightAnchor.constraint(equalToConstant: 20),
             
-            descriptionWeather.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            descriptionWeather.topAnchor.constraint(equalTo: dataWeather.bottomAnchor, constant: 10),
             descriptionWeather.leadingAnchor.constraint(equalTo: vetPercent.trailingAnchor, constant: 5),
-            descriptionWeather.bottomAnchor.constraint(equalTo: bottomAnchor),
             descriptionWeather.widthAnchor.constraint(equalToConstant: CGFloat(frame.width / 2) - 10),
-            descriptionWeather.heightAnchor.constraint(equalToConstant: 20),
+            descriptionWeather.heightAnchor.constraint(equalToConstant: 21),
             
             degreesseData.centerYAnchor.constraint(equalTo: descriptionWeather.centerYAnchor),
-            degreesseData.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            degreesseData.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             degreesseData.widthAnchor.constraint(equalToConstant: 100),
-            degreesseData.heightAnchor.constraint(equalToConstant: 20)
+            degreesseData.heightAnchor.constraint(equalToConstant: 21)
         ])
         
     }

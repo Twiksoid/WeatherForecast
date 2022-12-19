@@ -34,15 +34,7 @@ class WeatherDataController: UIViewController {
     }()
     
     @objc private func imageTapped(){
-        
-        let alert = UIAlertController(title: Constants.alarmAddTownTitle,
-                                      message: Constants.alarmAddTownText,
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constants.alarmAddTownOk,
-                                     style: .default)
-        alert.addAction(okAction)
-        present(alert, animated: true)
-        
+        getDataForCurrentLocation()
     }
     
     private lazy var layout: UICollectionViewFlowLayout = {
@@ -50,7 +42,6 @@ class WeatherDataController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 15
         layout.minimumInteritemSpacing = 25
-        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         return layout
     }()
     
@@ -146,6 +137,8 @@ class WeatherDataController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.imagePlusButton.isHidden = true
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKeyForCurrentTown), object: self)
+                    //self.collectionView.reloadData()
                     self.collectionView.isHidden = false
                 }
                 

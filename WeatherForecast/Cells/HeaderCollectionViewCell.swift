@@ -41,7 +41,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var imageRise: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let image = UIImageView()
         image.image = UIImage(systemName: "sunrise.fill")
         image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var imageSunset: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let image = UIImageView()
         image.image = UIImage(systemName: "sunset.fill")
         image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +83,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var imageVisible: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let image = UIImageView()
         image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -98,7 +98,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var imageRain: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let image = UIImageView()
         image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -113,7 +113,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var imageWind: UIImageView = {
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let image = UIImageView()
         image.tintColor = .specialBlue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -159,7 +159,6 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             imageLine.topAnchor.constraint(equalTo: topAnchor),
             imageLine.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             imageLine.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            imageLine.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageLine.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -80),
             
             minMaxWeather.topAnchor.constraint(equalTo: imageLine.topAnchor, constant: 10),
@@ -170,12 +169,10 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             currentWeatherValue.topAnchor.constraint(equalTo: minMaxWeather.bottomAnchor, constant: 10),
             currentWeatherValue.heightAnchor.constraint(equalToConstant: 20),
             currentWeatherValue.centerXAnchor.constraint(equalTo: centerXAnchor),
-            currentWeatherValue.bottomAnchor.constraint(equalTo: descriptionWeather.topAnchor, constant: -20),
             
             descriptionWeather.topAnchor.constraint(equalTo: currentWeatherValue.bottomAnchor, constant: 10),
             descriptionWeather.heightAnchor.constraint(equalToConstant: 20),
             descriptionWeather.centerXAnchor.constraint(equalTo: centerXAnchor),
-            descriptionWeather.bottomAnchor.constraint(equalTo: generalWeatherInfo.topAnchor, constant: -70),
             
             imageRise.topAnchor.constraint(equalTo: imageLine.bottomAnchor, constant: 20),
             imageRise.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -185,6 +182,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             
             timeRise.topAnchor.constraint(equalTo: imageRise.bottomAnchor),
             timeRise.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            timeRise.trailingAnchor.constraint(equalTo: imageRise.trailingAnchor, constant: 10),
             timeRise.bottomAnchor.constraint(equalTo: bottomAnchor),
             timeRise.heightAnchor.constraint(equalToConstant: 20),
             timeRise.widthAnchor.constraint(equalToConstant: 50),
@@ -198,16 +196,14 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             timeSunset.topAnchor.constraint(equalTo: imageSunset.bottomAnchor),
             timeSunset.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             timeSunset.bottomAnchor.constraint(equalTo: bottomAnchor),
+            timeSunset.leadingAnchor.constraint(equalTo: imageSunset.leadingAnchor, constant: -10),
             timeSunset.heightAnchor.constraint(equalToConstant: 20),
             timeSunset.widthAnchor.constraint(equalToConstant: 50),
             
-            generalWeatherInfo.topAnchor.constraint(equalTo: descriptionWeather.bottomAnchor, constant: 70),
-            generalWeatherInfo.centerYAnchor.constraint(equalTo: descriptionWeather.centerYAnchor),
-            generalWeatherInfo.leadingAnchor.constraint(equalTo: timeRise.leadingAnchor, constant: 50),
-            generalWeatherInfo.trailingAnchor.constraint(equalTo: timeSunset.trailingAnchor, constant: -50),
-            generalWeatherInfo.widthAnchor.constraint(equalToConstant: 20),
-            generalWeatherInfo.heightAnchor.constraint(equalToConstant: 20),
-            generalWeatherInfo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            generalWeatherInfo.topAnchor.constraint(equalTo: imageLine.bottomAnchor),
+            generalWeatherInfo.leadingAnchor.constraint(equalTo: timeRise.trailingAnchor),
+            generalWeatherInfo.trailingAnchor.constraint(equalTo: timeSunset.leadingAnchor),
+            generalWeatherInfo.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             imageWind.topAnchor.constraint(equalTo: descriptionWeather.bottomAnchor, constant: 15),
             imageWind.centerXAnchor.constraint(equalTo: descriptionWeather.centerXAnchor, constant: -20),
@@ -220,7 +216,6 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             valueWind.widthAnchor.constraint(equalToConstant: 50),
             
             imageVisible.topAnchor.constraint(equalTo: descriptionWeather.bottomAnchor, constant: 15),
-            imageVisible.bottomAnchor.constraint(equalTo: generalWeatherInfo.topAnchor, constant: -15),
             imageVisible.centerYAnchor.constraint(equalTo: imageWind.centerYAnchor),
             imageVisible.heightAnchor.constraint(equalToConstant: 40),
             imageVisible.widthAnchor.constraint(equalToConstant: 40),
@@ -237,7 +232,6 @@ class HeaderCollectionViewCell: UICollectionViewCell {
             imageRain.heightAnchor.constraint(equalToConstant: 40),
             imageRain.widthAnchor.constraint(equalToConstant: 40),
             
-            valueRain.topAnchor.constraint(equalTo: descriptionWeather.bottomAnchor, constant: 15),
             valueRain.leadingAnchor.constraint(equalTo: imageRain.trailingAnchor),
             valueRain.centerYAnchor.constraint(equalTo: imageRain.centerYAnchor),
             valueRain.heightAnchor.constraint(equalToConstant: 20),

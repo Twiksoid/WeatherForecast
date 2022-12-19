@@ -229,7 +229,7 @@ class SettingsController: UIViewController {
             imageCloud.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageCloud.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            nameOfGroup.bottomAnchor.constraint(equalTo: stackAll.topAnchor, constant: -20),
+            //nameOfGroup.bottomAnchor.constraint(equalTo: stackAll.topAnchor, constant: -20),
             nameOfGroup.leadingAnchor.constraint(equalTo: stackAll.leadingAnchor),
             
             stackAll.topAnchor.constraint(equalTo: nameOfGroup.bottomAnchor, constant: 10),
